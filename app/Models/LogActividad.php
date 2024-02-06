@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class LogActividad extends Model
 {
-    use HasFactory;
-
 
     protected $table = 'logActividades';
 
