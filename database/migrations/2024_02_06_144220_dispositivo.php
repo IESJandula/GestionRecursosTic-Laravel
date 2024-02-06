@@ -13,14 +13,17 @@ return new class extends Migration
     {
         Schema::create('dispositivo', function (Blueprint $table) {
             $table->id();
-            $table->integer('tipo_dispositivo');
+            $table->unsignedBigInteger('tipo_dispositivo'); // Define la columna tipo_dispositivo
+            $table->foreign('tipo_dispositivo')->references('id')->on('tipoDispositivos');
             $table->string('num_serie');
             $table->string('modelo');
             $table->string('marca');
             $table->date('fecha_adquisicion');
-            $table->string('estado');
+            $table->unsignedBigInteger('estado'); // Define la columna estado
+            $table->foreign('estado')->references('id')->on('estadoDispositivo');
             $table->text('observaciones');
-            $table->integer('ubicacion_id');
+            $table->unsignedBigInteger('ubicacion_id'); // Define la columna ubicacion_id
+            $table->foreign('ubicacion_id')->references('id')->on('ubicacion');
             $table->string('cod_barras');
 
             $table->timestamps();
@@ -32,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('dispositivo');
     }
 };
