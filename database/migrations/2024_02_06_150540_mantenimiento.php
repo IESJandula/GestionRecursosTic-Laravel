@@ -3,8 +3,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMantenimientosTable extends Migration
-{
+return new class extends Migration{
     /**
      * Run the migrations.
      *
@@ -24,7 +23,7 @@ class CreateMantenimientosTable extends Migration
             $table->timestamps();
 
             $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
-            $table->foreign('dispositivo_id')->references('id')->on('dispositivos')->onDelete('cascade');
+            $table->foreign('dispositivo_id')->references('id')->on('dispositivo')->onDelete('cascade');
             $table->foreign('asignacion_equipo_mantenimiento_id')->references('id')->on('asignacion_equipo_mantenimientos')->onDelete('cascade');
         });
     }
@@ -38,5 +37,5 @@ class CreateMantenimientosTable extends Migration
     {
         Schema::dropIfExists('mantenimientos');
     }
-}
+};
 

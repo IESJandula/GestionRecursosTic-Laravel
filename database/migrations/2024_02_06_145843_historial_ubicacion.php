@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Definir las claves foráneas
-            $table->foreign('dispositivo_id')->references('id')->on('dispositivos');
+            $table->foreign('dispositivo_id')->references('id')->on('dispositivo');
             $table->foreign('ubicacion_id')->references('id')->on('ubicaciones');
         });
     }
