@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Dispositivo;
 
-class DeviceController extends Controller
+class DispositivoController extends Controller
 {
-    //
+    public function list()
+    {
+        $dispositivos = dispositivo::all();
+        return view('dispositivos.listaDispositivos', compact('dispositivos'));
+    }
 }
+
+
