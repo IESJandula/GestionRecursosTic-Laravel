@@ -26,3 +26,5 @@ Route::controller(DispositivoController::class)->group(function () {
     Route::get('/dispositivos', 'list');
     Route::get('/dispositivos-averiados', 'listarAveriados')->name('listarAveriados');
 });
+
+Route::post('/agregar-equipo', [DispositivoController::class, 'agregarEquipo'])->name('agregar.equipo');
