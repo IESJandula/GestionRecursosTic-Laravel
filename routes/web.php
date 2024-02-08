@@ -29,3 +29,6 @@ Route::controller(DispositivoController::class)->group(function () {
     
 });
 
+
+Route::post('/agregar-equipo', [DispositivoController::class, 'agregarEquipo'])->name('agregar.equipo');
+
