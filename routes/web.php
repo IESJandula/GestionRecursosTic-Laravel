@@ -34,5 +34,22 @@ Route::controller(DispositivoController::class)->group(function () {
 });
 
 
-Route::post('/agregar-equipo', [DispositivoController::class, 'agregarEquipo'])->name('agregar.equipo');
+/* RUTAS PARA TIPO DE DISPOSITIVO */
+Route::get('/mostrar-tipos-dispositivos', [DispositivoController::class, 'mostrarTiposDispositivos'])
+    ->name('mostrar.tipos.dispositivos');
+
+
+Route::post('/agregar-equipo', [DispositivoController::class, 'agregarEquipo'])
+    ->name('agregar.equipo');
+
+
+Route::delete('/eliminar-tipos-dispositivos', [DispositivoController::class, 'eliminarTiposDispositivos'])
+    ->name('eliminar.tipos.dispositivos');
+
+Route::post('/editar-equipo', [DispositivoController::class, 'editarEquipo'])->name('editar.equipo');
+
+Route::post('/guardar-cambios', [DispositivoController::class, 'guardarCambios'])
+    ->name('guardar.cambios');
+
+
 

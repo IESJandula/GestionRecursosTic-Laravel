@@ -85,10 +85,10 @@
           </li>
           <li class="menu-item">
             <a
-              href=""
+              href="{{ route('mostrar.tipos.dispositivos')}}"
               target="_blank"
               class="menu-link">
-              <div data-i18n="eCommerce">View Device Location</div>
+              <div data-i18n="eCommerce">Tipo de Equipo</div>
             </a>
           </li>
           <li class="menu-item">

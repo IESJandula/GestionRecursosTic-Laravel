@@ -106,15 +106,15 @@ class DispositivoController extends Controller
 
         $tipoDispositivo->save();
 
-        return redirect()->route('agregar.equipo')->with('success', 'Equipo agregado exitosamente');
+        return redirect()->route('mostrar.tipos.dispositivos')->with('success', 'Equipo agregado exitosamente');
     }
 
     public function mostrarTiposDispositivos()
     {
         $tiposDispositivos = TipoDispositivo::all();
 
-        // Pasar los datos a la vista 'mostrar-tipos-dispositivos.blade.php'
-        return view('mostrar-tipos-dispositivos', compact('tiposDispositivos'));
+        // Pasar los datos a la vista 'TipoDispositivo'
+        return view('dispositivos.TipoDispositivo', compact('tiposDispositivos'));
     }
 
     public function eliminarTiposDispositivos(Request $request)
@@ -127,6 +127,48 @@ class DispositivoController extends Controller
 
         // Redireccionar de vuelta a la página anterior o a donde desees
         return redirect()->back()->with('success', 'Dispositivos eliminados exitosamente');
+    }
+
+    public function editarEquipo(Request $request) {
+        if ($request->has('editar_equipo')) {
+            $equipoId = $request->input('equipo_id');
+            
+            // Establece una variable de sesión para indicar que se está editando un equipo
+            session(['editandoEquipo' => $equipoId]);
+        } else {
+            // Si no se está editando, elimina la variable de sesión
+            session()->forget('editandoEquipo');
+        }
+    
+        // Luego, redirige de vuelta a la misma página
+        return redirect()->back();
+    }
+
+    public function guardarCambios(Request $request) {
+        $request->validate([
+            'equipo_id' => 'required|integer', // Cambia el tipo según sea necesario
+            'nombre_editado' => 'required|string|max:255',
+            'descripcion_editada' => 'nullable|string|max:255',
+        ]);
+    
+        // Obtener los datos del formulario
+        $equipoId = $request->input('equipo_id');
+        $nombreEditado = $request->input('nombre_editado');
+        $descripcionEditada = $request->input('descripcion_editada');
+    
+        // Realizar la lógica de edición aquí
+        $equipo = TipoDispositivo::find($equipoId);
+        if ($equipo) {
+            $equipo->nombre = $nombreEditado;
+            $equipo->descripcion = $descripcionEditada;
+            $equipo->save();
+    
+            // Redirigir de vuelta a la misma vista con un mensaje de éxito
+            return redirect()->back()->with('success', 'Cambios guardados exitosamente');
+        } else {
+            // Manejar el caso en el que el equipo no se encuentre
+            return redirect()->back()->with('error', 'El equipo no pudo ser encontrado');
+        }
     }
 
 
