@@ -25,4 +25,7 @@ Route::get('/', function () {
 Route::controller(DispositivoController::class)->group(function () {
     Route::get('/dispositivos', 'list');
     Route::get('/dispositivos-averiados', 'listarAveriados')->name('listarAveriados');
+    Route::get('/dispositivos/filtrar-por-ubicacion', [DispositivoController::class, 'filtrarPorUbicacion'])->name('filtrar_por_ubicacion');
+    
 });
+

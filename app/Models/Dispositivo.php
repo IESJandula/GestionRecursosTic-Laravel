@@ -14,7 +14,7 @@ class Dispositivo extends Model
 
     public function tipoDispositivo()
     {
-        return $this->belongsTo(TipoDispositivo::class);
+        return $this->belongsTo(TipoDispositivo::class,'tipo_dispostivo');
     }
 
     public function estado()
