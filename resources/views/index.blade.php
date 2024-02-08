@@ -60,59 +60,52 @@
         <div class="layout-page">
 
           @yield('content')
-                <!-- Transactions -->
-                <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
-                  <div class="card h-100">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="card-title m-0 me-2">forma de poner los encabezados</h5>
-                    </div>
-                  </div>
-                    <div class="card-body">
-                      <div>forma de poner el contenido</div>
-                    </div>
-                  </div>
-                </div>
-                <!--/ Transactions -->
+          <!-- Ejemplo de maquetacion de contenido -->
+          <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
+            <div class="card h-100">
+              <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="card-title m-0 me-2">forma de poner los encabezados</h5>
               </div>
             </div>
+            <div class="card-body">
+              <div>forma de poner el contenido</div>
+            </div>
           </div>
-          
-          <!-- Content wrapper -->
         </div>
-        
-        <!-- / Layout page -->
+        <!--/ Fin de ejemplo de maquetacion de contenido -->
       </div>
-      <!-- Footer -->
-      <footer class="content-footer footer bg-footer-theme">
-        <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-          <div class="mb-2 mb-md-0">
-            ©
-            <script>
-              document.write(new Date().getFullYear());
-            </script>
-            , made with ❤️ by
-            <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
-          </div>
-          <div class="d-none d-lg-inline-block">
-            <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-            <a
-              href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-              target="_blank"
-              class="footer-link me-4"
-              >Documentation</a
-            >
-
-            <a
-              href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-              target="_blank"
-              class="footer-link"
-              >Support</a
-            >
-          </div>
+    </div>
+    <!-- Footer -->
+    <footer class="content-footer footer bg-footer-theme">
+      <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <div class="mb-2 mb-md-0">
+          ©
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          , made with ❤️ by
+          <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
         </div>
-      </footer>
+        <div class="d-none d-lg-inline-block">
+          <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+          <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+
+          <a
+            href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
+            target="_blank"
+            class="footer-link me-4"
+            >Documentation</a
+          >
+
+          <a
+            href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+            target="_blank"
+            class="footer-link"
+            >Support</a
+          >
+        </div>
+      </div>
+    </footer>
       <!-- / Footer -->
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
