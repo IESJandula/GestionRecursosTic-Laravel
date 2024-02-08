@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dispositivo extends Model
 {
-    protected $table = "dispositivos";
+    protected $table = "dispositivo";
     protected $fillable = [
         'tipo_dispositivo', 'num_serie', 'modelo', 'marca','fecha_adquisicion', 'estado', 'observaciones', 'ubicacion_id', 'cod_barras'
     ];

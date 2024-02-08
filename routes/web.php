@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Dispositivo;
+use App\Http\Controllers\DispositivoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +21,5 @@ Route::get('/', function () {
 });
 
 
-
+//ruta para acceder a la lista de dispositivos
+Route::get('/dispositivos', [DispositivoController::class, 'list']);
