@@ -44,7 +44,6 @@
         </div>
     </div>
 
-
     <div class="col-md-6 order-2 m-4">
         <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between">

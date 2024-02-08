@@ -27,6 +27,10 @@ Route::controller(DispositivoController::class)->group(function () {
     Route::get('/dispositivos-averiados', 'listarAveriados')->name('listarAveriados');
     Route::get('/dispositivos/filtrar-por-ubicacion', [DispositivoController::class, 'filtrarPorUbicacion'])->name('filtrar_por_ubicacion');
     
+    /*Apartado de listar, modificar, añadir y eliminar dispositivo*/
+    Route::get('/stock', 'listar');
+    Route::get('/nuevo-dispositivo', 'addDispositivos');
+    Route::post('/addNew', 'insertDispositivos');
 });
 
 

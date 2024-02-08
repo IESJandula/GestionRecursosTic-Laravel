@@ -70,9 +70,9 @@
             <div class="card-body">
               <div>forma de poner el contenido</div>
             </div>
-          </div>
+          </div>-->
         </div>
-        </ Fin de ejemplo de maquetacion de contenido -->
+       
       </div>
     </div>
     <!-- Footer -->
