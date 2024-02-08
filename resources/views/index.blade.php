@@ -61,7 +61,9 @@
         <div class="layout-page">
 
           @yield('content')
+
           <!-- Ejemplo de maquetacion de contenido -
+
           <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
             <div class="card h-100">
               <div class="card-header d-flex align-items-center justify-content-between">
@@ -71,9 +73,11 @@
             <div class="card-body">
               <div>forma de poner el contenido</div>
             </div>
-          </div>
+          </div>-->
         </div>
+
         / Fin de ejemplo de maquetacion de contenido -->
+
       </div>
     </div>
     <!-- Footer 

@@ -43,6 +43,26 @@
             </div>
         </div>
     </div>
-    <!--/ Fin de ejemplo de maquetacion de contenido -->
-@endsection
 
+    <div class="col-md-6 order-2 m-4">
+        <div class="card h-100">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="card-title m-0 me-2">Nombre Ubicación</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('filtrar_por_ubicacion') }}" method="GET">
+                    <div class="mb-3">
+                        <label for="ubicacion">Selecciona una ubicación:</label>
+                        <select name="ubicacion" id="ubicacion" class="form-control">
+                            <option value="">Seleccionar...</option>
+                            @foreach($ubicaciones as $ubicacion)
+                                <option value="{{ $ubicacion->id }}">{{ $ubicacion->nombre_ubicacion }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection

@@ -28,6 +28,32 @@ Route::controller(DispositivoController::class)->group(function () {
     Route::get('/reparar/{id}', 'reparar')->name('reparar');
     Route::get('/desechar/{id}', 'desechar')->name('desechar');
     Route::get('/filtrar-por-tipo', 'filtrarPorTipo')->name('filtrar-por-tipo');
-
+    
+    /*Apartado de listar, modificar, añadir y eliminar dispositivo*/
+    Route::get('/stock', 'listar');
+    Route::get('/nuevo-dispositivo', 'addDispositivos');
+    Route::post('/addNew', 'insertDispositivos');
 
 });
+Route::get('/dispositivos/filtrar-por-ubicacion', [DispositivoController::class, 'filtrarPorUbicacion'])->name('filtrar_por_ubicacion');
+
+
+/* RUTAS PARA TIPO DE DISPOSITIVO */
+Route::get('/mostrar-tipos-dispositivos', [DispositivoController::class, 'mostrarTiposDispositivos'])
+    ->name('mostrar.tipos.dispositivos');
+
+
+Route::post('/agregar-equipo', [DispositivoController::class, 'agregarEquipo'])
+    ->name('agregar.equipo');
+
+
+Route::delete('/eliminar-tipos-dispositivos', [DispositivoController::class, 'eliminarTiposDispositivos'])
+    ->name('eliminar.tipos.dispositivos');
+
+Route::post('/editar-equipo', [DispositivoController::class, 'editarEquipo'])->name('editar.equipo');
+
+Route::post('/guardar-cambios', [DispositivoController::class, 'guardarCambios'])
+    ->name('guardar.cambios');
+
+
+
