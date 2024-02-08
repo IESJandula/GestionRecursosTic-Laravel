@@ -12,9 +12,9 @@ class DispositivoController extends Controller
         $dispositivos = dispositivo::all();
         return view('dispositivos.listaDispositivos', compact('dispositivos'));
     }
-    public function a()
+    public function listarAveriados()
     {
-        $dispositivos = dispositivo::all();
+        $dispositivosAveriados = dispositivo::all();
         return view('dispositivos.listaDispositivos', compact('dispositivos'));
     }
     public function b()

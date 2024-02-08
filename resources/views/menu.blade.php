@@ -65,7 +65,7 @@
       <li class="menu-item active open">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
-          <div data-i18n="Dashboards">ZONA ADMINISTRADOR</div>
+          <div data-i18n="Dashboards">ADMINISTRAR DISPOSITIVOS</div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
@@ -97,7 +97,7 @@
               href=""
               target="_blank"
               class="menu-link">
-              <div data-i18n="Logistics">New Device</div>
+              <div data-i18n="Logistics">Dispositivos Dañados</div>
             </a>
           </li>
           <li class="menu-item">
