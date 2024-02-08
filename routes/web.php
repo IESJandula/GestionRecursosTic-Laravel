@@ -25,4 +25,9 @@ Route::get('/', function () {
 Route::controller(DispositivoController::class)->group(function () {
     Route::get('/dispositivos', 'list');
     Route::get('/dispositivos-averiados', 'listarAveriados')->name('listarAveriados');
+    Route::get('/reparar/{id}', 'reparar')->name('reparar');
+    Route::get('/desechar/{id}', 'desechar')->name('desechar');
+    Route::get('/filtrar-por-tipo', 'filtrarPorTipo')->name('filtrar-por-tipo');
+
+
 });

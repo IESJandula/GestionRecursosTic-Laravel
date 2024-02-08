@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{asset('assets\vendor\fonts\boxicons.css')}}" />
 
     <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ asset('./../css/estilosPropios.css') }}">
     <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
@@ -60,7 +61,7 @@
         <div class="layout-page">
 
           @yield('content')
-          <!-- Ejemplo de maquetacion de contenido -->
+          <!-- Ejemplo de maquetacion de contenido -
           <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
             <div class="card h-100">
               <div class="card-header d-flex align-items-center justify-content-between">
@@ -72,10 +73,10 @@
             </div>
           </div>
         </div>
-        <!--/ Fin de ejemplo de maquetacion de contenido -->
+        / Fin de ejemplo de maquetacion de contenido -->
       </div>
     </div>
-    <!-- Footer -->
+    <!-- Footer 
     <footer class="content-footer footer bg-footer-theme">
       <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
         <div class="mb-2 mb-md-0">
@@ -106,7 +107,7 @@
         </div>
       </div>
     </footer>
-      <!-- / Footer -->
+      / Footer -->
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>

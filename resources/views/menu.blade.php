@@ -94,10 +94,10 @@
           <li class="menu-item">
             <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <a
-              href=""
+              href="{{ route('listarAveriados') }}"
               target="_blank"
               class="menu-link">
-              <div data-i18n="Logistics">Dispositivos Dañados</div>
+              <div data-i18n="Logistics">Dispositivos Averiados</div>
             </a>
           </li>
           <li class="menu-item">
