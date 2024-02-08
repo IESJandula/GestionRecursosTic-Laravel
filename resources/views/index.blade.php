@@ -76,7 +76,7 @@
           </div>-->
         </div>
 
-        / Fin de ejemplo de maquetacion de contenido -->
+        <!--/ Fin de ejemplo de maquetacion de contenido -->
 
       </div>
     </div>
