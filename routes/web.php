@@ -21,5 +21,8 @@ Route::get('/', function () {
 });
 
 
-//ruta para acceder a la lista de dispositivos
-Route::get('/dispositivos', [DispositivoController::class, 'list']);
+//grupo de rutas que dirigen a DispositivoController
+Route::controller(DispositivoController::class)->group(function () {
+    Route::get('/dispositivos', 'list');
+    Route::get('/dispositivos-averiados', 'listarAveriados')->name('listarAveriados');
+});
