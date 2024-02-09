@@ -56,4 +56,8 @@ Route::post('/guardar-cambios', [DispositivoController::class, 'guardarCambios']
     ->name('guardar.cambios');
 
 
-
+/* Ruta para metodo ubicaciones*/
+Route::get('/ubicaciones', [DispositivoController::class, 'ubicaciones'])->name('dispositivos.ubicaciones');
+Route::get('/ubicaciones/{ubicacion}/edit', [DispositivoController::class, 'edit'])->name('ubicaciones.edit');
+Route::delete('/ubicaciones/{ubicacion}', [DispositivoController::class, 'destroy'])->name('ubicaciones.destroy');
+Route::post('/crearUbicacion', [DispositivoController::class, 'crearUbicacion']);
