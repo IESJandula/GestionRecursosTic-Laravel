@@ -40,7 +40,7 @@
                                 @csrf
                                 <tr>
                                     <td>
-                                        <select name="tipo" id="tipo">
+                                        <select name="tipo" id="tipo" class="form-control">
                                                 <option value="todos">todos</option>
                                             @foreach($contados as $tipo => $cantidad)
                                                 <option value="{{ $tipo }}">{{ $tipo }}</option>
@@ -48,7 +48,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <button type="submit">Filtrar</button>
+                                        <button type="submit" class="btn btn-danger">Filtrar</button>
                                     </td>
                                 </tr>
                             </form>
