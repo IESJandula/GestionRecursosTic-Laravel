@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <a href="{{ url('nuevo-dispositivo') }}" class="btn btn-success">Añadir Nuevo</a>
+                <a href="{{ url('nuevo-dispositivo') }}" class="btn btn-success">Registro de Incidencias</a>
                     <br>
                     <table class="table table-striped">
                         <thead>

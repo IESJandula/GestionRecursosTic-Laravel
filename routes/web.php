@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Dispositivo;
 use App\Http\Controllers\DispositivoController;
-
+use App\Http\Controllers\IncidenciasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +35,9 @@ Route::controller(DispositivoController::class)->group(function () {
     Route::get('/stock', 'listar');
     Route::get('/nuevo-dispositivo', 'addDispositivos');
     Route::post('/addNew', 'insertDispositivos');
+    Route::get('/modificar-dispositivo/{id}', 'editarDispositivos');
+    Route::post('/updateDispositivoStock/{id}', 'updateDispositivos');
+    Route::get('/eliminar-dispositivo/{id}', 'eliminarDispositivo');
 
 });
 Route::get('/dispositivos/filtrar-por-ubicacion', [DispositivoController::class, 'filtrarPorUbicacion'])->name('filtrar_por_ubicacion');
@@ -63,3 +66,11 @@ Route::get('/ubicaciones', [DispositivoController::class, 'ubicaciones'])->name(
 Route::get('/ubicaciones/{ubicacion}/edit', [DispositivoController::class, 'edit'])->name('ubicaciones.edit');
 Route::delete('/ubicaciones/{ubicacion}', [DispositivoController::class, 'destroy'])->name('ubicaciones.destroy');
 Route::post('/crearUbicacion', [DispositivoController::class, 'crearUbicacion']);
+
+
+/*Parte para el controlador de Incidencias*/
+Route::controller(IncidenciasController::class)->group(function () {
+    Route::get('/incidencias', 'list');
+
+});
+/*Fin controlador de incidencias*/

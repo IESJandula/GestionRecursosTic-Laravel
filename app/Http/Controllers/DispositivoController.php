@@ -36,6 +36,50 @@ class DispositivoController extends Controller
         $ubicaciones = Ubicacion::all(); // Suponiendo que 'Ubicacion' es el modelo de tus ubicaciones.
         return view('dispositivos.addDispositivos', compact('tiposDispositivos', 'ubicaciones'));
     }
+    /*MODIFICAR DISPOSITIVOS////////////////////////////////////////*/
+    public function editarDispositivos($id)
+    {
+        $dispositivo = Dispositivo::findOrFail($id);
+        $tiposDispositivos = TipoDispositivo::all();
+        $ubicaciones = Ubicacion::all();
+        return view('dispositivos.modifyDispositivos', compact('dispositivo', 'tiposDispositivos', 'ubicaciones'));
+    }
+
+    /*ACTUALIZAR LOS DISPOSITIVOS EN LA BD*/
+    public function updateDispositivos(Request $request, $id)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'tipo_dispositivo' => 'required',
+            'num_serie' => 'required',
+            'modelo' => 'required',
+            'marca' => 'required',
+            'fecha_adquisicion' => 'required|date',
+            'ubicacion_id' => 'required',
+            'cod_barras' => 'required',
+        ]);
+
+        // Obtener el dispositivo por su ID
+        $updateDispositivo = Dispositivo::findOrFail($id);
+
+        // Asignar los valores del formulario a los atributos del modelo
+        $updateDispositivo->tipo_dispositivo = $request->tipo_dispositivo;
+        $updateDispositivo->num_serie = $request->num_serie;
+        $updateDispositivo->modelo = $request->modelo;
+        $updateDispositivo->marca = $request->marca; 
+        $updateDispositivo->fecha_adquisicion = $request->fecha_adquisicion;
+        $updateDispositivo->estado = $request->estado; // Si este campo está en el formulario
+        $updateDispositivo->ubicacion_id = $request->ubicacion_id;
+        $updateDispositivo->cod_barras = $request->cod_barras;
+        $updateDispositivo->observaciones = $request->observaciones;
+
+        // Guardar el modelo en la base de datos
+        $updateDispositivo->save();
+
+        // Redireccionar a la página deseada después de guardar
+        return redirect('stock')->with('success', '¡Datos actualizados correctamente!');
+    }
+    
 
     public function insertDispositivos(Request $request)
     {
@@ -49,7 +93,7 @@ class DispositivoController extends Controller
             'ubicacion_id' => 'required',
             'cod_barras' => 'required',
         ]);
-*/
+    */
         // Crear una nueva instancia de Dispositivo
         $newDispositivo = new Dispositivo();
 
@@ -77,6 +121,14 @@ class DispositivoController extends Controller
     {
         $dispositivos = dispositivo::all();
         return view('dispositivos.stock', compact('dispositivos'));
+    }
+
+    /*ELIMINAR LOS DISPOSITIVOS////////////////////////////////////////*/
+    public function eliminarDispositivo($id)
+    {
+        $dispositivo = Dispositivo::findOrFail($id);
+        $dispositivo->delete();
+        return redirect('stock')->with('success', '¡Dispositivo eliminado correctamente!');
     }
     /*fin zona fran  */
 
@@ -236,7 +288,7 @@ public function asignarUbicacion(Request $request)
     {
         // Obtener los IDs de los tipos de dispositivos seleccionados desde el formulario
         $tiposSeleccionados = $request->input('tipos_seleccionados', []);
-
+        
         // Eliminar los tipos de dispositivos seleccionados de la base de datos
         TipoDispositivo::whereIn('id', $tiposSeleccionados)->delete();
 
@@ -277,7 +329,10 @@ public function asignarUbicacion(Request $request)
             $equipo->nombre = $nombreEditado;
             $equipo->descripcion = $descripcionEditada;
             $equipo->save();
-    
+            
+            //Limpiar la variable de sesion de edicion para que no me aparezca el formulario una vez se pulse el boton de guardar cambios
+            session()->forget('editandoEquipo');
+
             // Redirigir de vuelta a la misma vista con un mensaje de éxito
             return redirect()->back()->with('success', 'Cambios guardados exitosamente');
         } else {
