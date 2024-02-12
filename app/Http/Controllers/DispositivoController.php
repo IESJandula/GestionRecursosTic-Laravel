@@ -171,6 +171,35 @@ public function reparar($id)
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////V  I  S  T  A     A  S  I  G  N  A  R    L  O  C  A  L  I  Z  A  C  I  O  N  E  S////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function listarDispositivosUbicados()
+{
+    $dispositivos = Dispositivo::join('ubicaciones','dispositivo.ubicacion_id','=','ubicaciones.id')
+        ->join('tipodispositivos','dispositivo.tipo_dispositivo','=','tipodispositivos.id')
+        ->select('dispositivo.*','ubicaciones.nombre_ubicacion as nombreubicacion', 'tipodispositivos.nombre as nombredispositivo','tipodispositivos.descripcion as descripcion')
+        ->get();
+        $ubicaciones = Ubicacion::leftJoin('dispositivo', 'ubicaciones.id', '=', 'dispositivo.ubicacion_id')
+        ->leftJoin('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+        ->select('ubicaciones.nombre_ubicacion as nombreubicacion')
+        ->distinct()
+        ->get();
+    
+    return view('dispositivos.asignarUbicacion', [
+        'dispositivos' => $dispositivos,
+        'ubicaciones' => $ubicaciones,
+    ]);
+}
+public function asignarUbicacion(Request $request)
+{
+    $ubicacionNueva = $request->input('ubicacion');
+    $dispositivosSeleccionados = $request->input('dispositivos_seleccionados');
+
+    // Actualizar ubicación de dispositivos seleccionados
+    Dispositivo::whereIn('id', $dispositivosSeleccionados)->update(['ubicacion_id' => $ubicacionNueva]);
+
+    // Puedes redirigir a alguna página después de realizar la asignación
+    return redirect()->route('asignar-ubicacion');
+}
+
     
 
     /*fin zona silvia  */

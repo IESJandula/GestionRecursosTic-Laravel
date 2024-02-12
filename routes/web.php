@@ -28,6 +28,8 @@ Route::controller(DispositivoController::class)->group(function () {
     Route::get('/reparar/{id}', 'reparar')->name('reparar');
     Route::get('/desechar/{id}', 'desechar')->name('desechar');
     Route::get('/filtrar-por-tipo', 'filtrarPorTipo')->name('filtrar-por-tipo');
+    Route::get('/asignar-ubicacion', 'listarDispositivosUbicados')->name('asignar-ubicacion');
+    Route::get('/asignar-ubicacion-nueva', 'asignarUbicacion')->name('asignar-ubicacion-nueva');
     
     /*Apartado de listar, modificar, añadir y eliminar dispositivo*/
     Route::get('/stock', 'listar');

@@ -92,7 +92,6 @@
             </a>
           </li>
           <li class="menu-item">
-            <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <a
               href="{{ route('listarAveriados') }}"
               target="_blank"
@@ -101,12 +100,11 @@
             </a>
           </li>
           <li class="menu-item">
-            <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <a
-              href=""
+              href="{{ route('asignar-ubicacion') }}"
               target="_blank"
               class="menu-link">
-              <div data-i18n="Academy">Damage Device</div>
+              <div data-i18n="Academy">Asignar Ubicacion</div>
             </a>
           </li>
           <li class="menu-item">
