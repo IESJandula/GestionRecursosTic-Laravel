@@ -37,16 +37,19 @@
                                 @csrf
                                 <tr>
                                     <td>
+
                                         <label for="tipo">Filtrar por nombre: </label>
-                                        <select name="tipo" id="tipo">
-                                                <option value="todos">Todos</option>
+                                        
+
+                                        <select name="tipo" id="tipo" class="form-control">
+                                                <option value="todos">todos</option>
                                             @foreach($contados as $tipo => $cantidad)
                                                 <option value="{{ $tipo }}">{{ $tipo }}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td>
-                                        <button type="submit">Filtrar</button>
+                                        <button type="submit" class="btn btn-danger">Filtrar</button>
                                     </td>
                                 </tr>
                             </form>

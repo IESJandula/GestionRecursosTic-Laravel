@@ -18,7 +18,8 @@ class DispositivoController extends Controller
     public function list()
     {
         $dispositivos = dispositivo::all();
-        return view('dispositivos.listaDispositivos', compact('dispositivos'));
+        $ubicaciones = Ubicacion::all(); 
+        return view('dispositivos.listaDispositivos', compact('dispositivos', 'ubicaciones'));
     }
     /*LISTAR LOS DISPOSITIVOS////////////////////////////////////////*/
     public function listar()
@@ -275,6 +276,34 @@ public function reparar($id)
 
         // Pasar los dispositivos filtrados a la vista
         return view('dispositivos.listaDispositivos', compact('dispositivos', 'ubicaciones'));
+    }
+
+    public function ubicaciones()
+    {
+        $ubicaciones = Ubicacion::all();
+        return view('dispositivos.ubicaciones', compact('ubicaciones'));
+    }
+
+    public function crearUbicacion(Request $request)
+    {
+        // Validar los datos de entrada
+        $request->validate([
+            'nombre_ubicacion' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+        ]);
+
+        // Crear una nueva instancia del modelo Ubicacion
+        $ubicacion = new Ubicacion();
+
+        // Asignar los valores del formulario a los atributos del modelo
+        $ubicacion->nombre_ubicacion = $request->input('nombre_ubicacion');
+        $ubicacion->descripcion = $request->input('descripcion');
+
+        // Guardar la ubicación en la base de datos
+        $ubicacion->save();
+
+        // Redirigir a alguna vista o ruta apropiada
+        return redirect('ubicaciones')->with('success', '¡Datos guardados correctamente!');
     }
 
     /*zona fin juanma*/
