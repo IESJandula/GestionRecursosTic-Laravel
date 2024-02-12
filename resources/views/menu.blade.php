@@ -71,22 +71,20 @@
           <li class="menu-item">
             <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <a
-              href=""
-              target="_blank"
+              href="{{url('/')}}"
               class="menu-link">
-              <div data-i18n="CRM">Dashboard</div>
+              <div data-i18n="CRM">Home</div>
             </a>
           </li>
-          <li class="menu-item active">
+          <li class="menu-item">
             <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <a href="" class="menu-link">
-              <div data-i18n="Analytics">Device / Stocks</div>
+            <a href="{{url('stock')}}" class="menu-link">
+              <div data-i18n="Analytics">Dispositivos Stock</div>
             </a>
           </li>
           <li class="menu-item">
             <a
               href="{{ route('mostrar.tipos.dispositivos')}}"
-              target="_blank"
               class="menu-link">
               <div data-i18n="eCommerce">Tipo de Equipo</div>
             </a>
@@ -95,16 +93,14 @@
             <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <a
               href="{{ route('listarAveriados') }}"
-              target="_blank"
               class="menu-link">
-              <div data-i18n="Logistics">Dispositivos Averiados</div>
+              <div data-i18n="Logistics">Dispositivos Dañados</div>
             </a>
           </li>
           <li class="menu-item">
             <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <a
               href=""
-              target="_blank"
               class="menu-link">
               <div data-i18n="Academy">Damage Device</div>
             </a>
@@ -113,7 +109,6 @@
             <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <a
               href=""
-              target="_blank"
               class="menu-link">
               <div data-i18n="Logistics">Dump Device</div>
             </a>
@@ -122,7 +117,6 @@
             <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <a
               href=""
-              target="_blank"
               class="menu-link">
               <div data-i18n="Logistics">Device in the location</div>
             </a>

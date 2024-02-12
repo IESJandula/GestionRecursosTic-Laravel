@@ -36,6 +36,50 @@ class DispositivoController extends Controller
         $ubicaciones = Ubicacion::all(); // Suponiendo que 'Ubicacion' es el modelo de tus ubicaciones.
         return view('dispositivos.addDispositivos', compact('tiposDispositivos', 'ubicaciones'));
     }
+    /*MODIFICAR DISPOSITIVOS////////////////////////////////////////*/
+    public function editarDispositivos($id)
+    {
+        $dispositivo = Dispositivo::findOrFail($id);
+        $tiposDispositivos = TipoDispositivo::all();
+        $ubicaciones = Ubicacion::all();
+        return view('dispositivos.modifyDispositivos', compact('dispositivo', 'tiposDispositivos', 'ubicaciones'));
+    }
+
+    /*ACTUALIZAR LOS DISPOSITIVOS EN LA BD*/
+    public function updateDispositivos(Request $request, $id)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'tipo_dispositivo' => 'required',
+            'num_serie' => 'required',
+            'modelo' => 'required',
+            'marca' => 'required',
+            'fecha_adquisicion' => 'required|date',
+            'ubicacion_id' => 'required',
+            'cod_barras' => 'required',
+        ]);
+
+        // Obtener el dispositivo por su ID
+        $updateDispositivo = Dispositivo::findOrFail($id);
+
+        // Asignar los valores del formulario a los atributos del modelo
+        $updateDispositivo->tipo_dispositivo = $request->tipo_dispositivo;
+        $updateDispositivo->num_serie = $request->num_serie;
+        $updateDispositivo->modelo = $request->modelo;
+        $updateDispositivo->marca = $request->marca; 
+        $updateDispositivo->fecha_adquisicion = $request->fecha_adquisicion;
+        $updateDispositivo->estado = $request->estado; // Si este campo está en el formulario
+        $updateDispositivo->ubicacion_id = $request->ubicacion_id;
+        $updateDispositivo->cod_barras = $request->cod_barras;
+        $updateDispositivo->observaciones = $request->observaciones;
+
+        // Guardar el modelo en la base de datos
+        $updateDispositivo->save();
+
+        // Redireccionar a la página deseada después de guardar
+        return redirect('stock')->with('success', '¡Datos actualizados correctamente!');
+    }
+    
 
     public function insertDispositivos(Request $request)
     {
@@ -49,7 +93,7 @@ class DispositivoController extends Controller
             'ubicacion_id' => 'required',
             'cod_barras' => 'required',
         ]);
-*/
+    */
         // Crear una nueva instancia de Dispositivo
         $newDispositivo = new Dispositivo();
 
@@ -78,11 +122,24 @@ class DispositivoController extends Controller
         $dispositivos = dispositivo::all();
         return view('dispositivos.stock', compact('dispositivos'));
     }
+
+    /*ELIMINAR LOS DISPOSITIVOS////////////////////////////////////////*/
+    public function eliminarDispositivo($id)
+    {
+        $dispositivo = Dispositivo::findOrFail($id);
+        $dispositivo->delete();
+        return redirect('stock')->with('success', '¡Dispositivo eliminado correctamente!');
+    }
     /*fin zona fran  */
 
 
 
     /* zona silvia*/
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////V  I  S  T  A     D  I  S  P  O  S  I  T  I  V  O  S    A  V  E  R  I  A  D  O  S////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function listarAveriados()
 {
     $dispositivosAveriados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
@@ -143,7 +200,7 @@ public function reparar($id)
     $dispositivo = Dispositivo::findOrFail($id);
 
     // Cambiar el estado a "reparado" 
-    $dispositivo->estado = 3; // Supongo que 'reparado' es el nombre del estado
+    $dispositivo->estado = 3;
     $dispositivo->save();
 
     // Redirigir a la vista listarAveriados
@@ -155,13 +212,18 @@ public function reparar($id)
         // Obtener el dispositivo por su ID
         $dispositivo = Dispositivo::findOrFail($id);
 
-        // Cambiar el estado a "desechado" (ajusta según tu estructura de base de datos)
+        // Cambiar el estado a "desechado" 
         $dispositivo->estado = 4;
         $dispositivo->save();
 
         // Redirigir a la vista o a donde sea necesario
         return redirect()->route('listarAveriados'); 
     }
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////V  I  S  T  A     A  S  I  G  N  A  R    L  O  C  A  L  I  Z  A  C  I  O  N  E  S////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 
     /*fin zona silvia  */
 
