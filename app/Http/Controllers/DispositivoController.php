@@ -197,7 +197,7 @@ public function reparar($id)
     {
         // Obtener los IDs de los tipos de dispositivos seleccionados desde el formulario
         $tiposSeleccionados = $request->input('tipos_seleccionados', []);
-
+        
         // Eliminar los tipos de dispositivos seleccionados de la base de datos
         TipoDispositivo::whereIn('id', $tiposSeleccionados)->delete();
 
@@ -238,7 +238,10 @@ public function reparar($id)
             $equipo->nombre = $nombreEditado;
             $equipo->descripcion = $descripcionEditada;
             $equipo->save();
-    
+            
+            //Limpiar la variable de sesion de edicion para que no me aparezca el formulario una vez se pulse el boton de guardar cambios
+            session()->forget('editandoEquipo');
+
             // Redirigir de vuelta a la misma vista con un mensaje de éxito
             return redirect()->back()->with('success', 'Cambios guardados exitosamente');
         } else {
