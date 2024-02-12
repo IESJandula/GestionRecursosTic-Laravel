@@ -6,59 +6,23 @@ use Illuminate\Http\Request;
 
 class IncidenciasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    //zona fran
+    public function list()
     {
         //
     }
+    //fin zona fran
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    //zona silvia
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    //fin zona silvia
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    //zona jose
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+    //fin zona jose
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    //zona juanma
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    //fin zona juanma
+
 }
