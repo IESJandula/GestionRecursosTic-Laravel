@@ -34,6 +34,8 @@ Route::controller(DispositivoController::class)->group(function () {
     Route::get('/nuevo-dispositivo', 'addDispositivos');
     Route::post('/addNew', 'insertDispositivos');
     Route::get('/modificar-dispositivo/{id}', 'editarDispositivos');
+    Route::post('/updateDispositivoStock/{id}', 'updateDispositivos');
+    Route::get('/eliminar-dispositivo/{id}', 'eliminarDispositivo');
 
 });
 Route::get('/dispositivos/filtrar-por-ubicacion', [DispositivoController::class, 'filtrarPorUbicacion'])->name('filtrar_por_ubicacion');

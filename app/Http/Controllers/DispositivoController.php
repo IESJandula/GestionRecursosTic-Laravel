@@ -45,6 +45,42 @@ class DispositivoController extends Controller
         return view('dispositivos.modifyDispositivos', compact('dispositivo', 'tiposDispositivos', 'ubicaciones'));
     }
 
+    /*ACTUALIZAR LOS DISPOSITIVOS EN LA BD*/
+    public function updateDispositivos(Request $request, $id)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'tipo_dispositivo' => 'required',
+            'num_serie' => 'required',
+            'modelo' => 'required',
+            'marca' => 'required',
+            'fecha_adquisicion' => 'required|date',
+            'ubicacion_id' => 'required',
+            'cod_barras' => 'required',
+        ]);
+
+        // Obtener el dispositivo por su ID
+        $updateDispositivo = Dispositivo::findOrFail($id);
+
+        // Asignar los valores del formulario a los atributos del modelo
+        $updateDispositivo->tipo_dispositivo = $request->tipo_dispositivo;
+        $updateDispositivo->num_serie = $request->num_serie;
+        $updateDispositivo->modelo = $request->modelo;
+        $updateDispositivo->marca = $request->marca; 
+        $updateDispositivo->fecha_adquisicion = $request->fecha_adquisicion;
+        $updateDispositivo->estado = $request->estado; // Si este campo está en el formulario
+        $updateDispositivo->ubicacion_id = $request->ubicacion_id;
+        $updateDispositivo->cod_barras = $request->cod_barras;
+        $updateDispositivo->observaciones = $request->observaciones;
+
+        // Guardar el modelo en la base de datos
+        $updateDispositivo->save();
+
+        // Redireccionar a la página deseada después de guardar
+        return redirect('stock')->with('success', '¡Datos actualizados correctamente!');
+    }
+    
+
     public function insertDispositivos(Request $request)
     {
         // Validar los datos del formulario
@@ -85,6 +121,14 @@ class DispositivoController extends Controller
     {
         $dispositivos = dispositivo::all();
         return view('dispositivos.stock', compact('dispositivos'));
+    }
+
+    /*ELIMINAR LOS DISPOSITIVOS////////////////////////////////////////*/
+    public function eliminarDispositivo($id)
+    {
+        $dispositivo = Dispositivo::findOrFail($id);
+        $dispositivo->delete();
+        return redirect('stock')->with('success', '¡Dispositivo eliminado correctamente!');
     }
     /*fin zona fran  */
 

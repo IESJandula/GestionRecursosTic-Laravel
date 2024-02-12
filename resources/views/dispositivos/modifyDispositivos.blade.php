@@ -9,19 +9,12 @@
             </div>
             <div class="card-body">
 
-                <form action="{{ url('addNew') }}" method="POST">
+                <form action="{{ url('updateDispositivoStock/'.$dispositivo->id) }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-4">
-                                <label for="nombre">Tipo de dispositivo:</label>
-                                <select name="tipo_dispositivo" id="tipo_dispositivo" class="form-control" required>
-                                    @foreach($tiposDispositivos as $tipoDispositivo)
-                                        <option value="{{ $tipoDispositivo->id }}">{{ $tipoDispositivo->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3">                                
+                                <input type="hidden" name="tipo_dispositivo" id="tipo_dispositivo" value="{{$dispositivo->tipo_dispositivo}}">
                                 <label for="marca">Número de serie:</label>
                                 <input type="text" name="num_serie" id="num_serie" class="form-control" value="{{$dispositivo->num_serie}}" required>
                             </div>
@@ -41,6 +34,7 @@
                                 <label for="fecha">Fecha de adquisición:</label>
                                 <input type="date" id="fecha_adquisicion" name="fecha_adquisicion" class="form-control" value="{{$dispositivo->fecha_adquisicion}}" required>
                                 <input type="hidden" name="estado" id="estado" value="0">
+                                <input type="hidden" name="ubicacion_id" id="ubicacion_id" value="{{$dispositivo->ubicacion_id}}">
                             </div>
                             <div class="col-md-4">
                                 <label for="cod_barras">Código de barras:</label>
