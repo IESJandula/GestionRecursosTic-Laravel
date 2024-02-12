@@ -56,7 +56,7 @@
                                         @endforeach
                                     </td>
                                     <td>{{ $dispositivo->cod_barras }}</td>
-                                    <td><a href="" class="btn btn-primary">Editar</a></td>
+                                    <td><a href="{{ url('modificar-dispositivo/'.$dispositivo->id) }}" class="btn btn-primary">Editar</a></td>
                                     <td><a href="" class="btn btn-danger">Eliminar</a></td>
                                 </tr>
                             @endforeach

@@ -33,6 +33,7 @@ Route::controller(DispositivoController::class)->group(function () {
     Route::get('/stock', 'listar');
     Route::get('/nuevo-dispositivo', 'addDispositivos');
     Route::post('/addNew', 'insertDispositivos');
+    Route::get('/modificar-dispositivo/{id}', 'editarDispositivos');
 
 });
 Route::get('/dispositivos/filtrar-por-ubicacion', [DispositivoController::class, 'filtrarPorUbicacion'])->name('filtrar_por_ubicacion');

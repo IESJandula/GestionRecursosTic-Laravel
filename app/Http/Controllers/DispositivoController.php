@@ -36,6 +36,14 @@ class DispositivoController extends Controller
         $ubicaciones = Ubicacion::all(); // Suponiendo que 'Ubicacion' es el modelo de tus ubicaciones.
         return view('dispositivos.addDispositivos', compact('tiposDispositivos', 'ubicaciones'));
     }
+    /*MODIFICAR DISPOSITIVOS////////////////////////////////////////*/
+    public function editarDispositivos($id)
+    {
+        $dispositivo = Dispositivo::findOrFail($id);
+        $tiposDispositivos = TipoDispositivo::all();
+        $ubicaciones = Ubicacion::all();
+        return view('dispositivos.modifyDispositivos', compact('dispositivo', 'tiposDispositivos', 'ubicaciones'));
+    }
 
     public function insertDispositivos(Request $request)
     {
@@ -49,7 +57,7 @@ class DispositivoController extends Controller
             'ubicacion_id' => 'required',
             'cod_barras' => 'required',
         ]);
-*/
+    */
         // Crear una nueva instancia de Dispositivo
         $newDispositivo = new Dispositivo();
 
