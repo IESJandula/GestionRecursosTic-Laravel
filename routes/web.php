@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Dispositivo;
 use App\Http\Controllers\DispositivoController;
-
+use App\Http\Controllers\IncidenciasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,3 +64,11 @@ Route::get('/ubicaciones', [DispositivoController::class, 'ubicaciones'])->name(
 Route::get('/ubicaciones/{ubicacion}/edit', [DispositivoController::class, 'edit'])->name('ubicaciones.edit');
 Route::delete('/ubicaciones/{ubicacion}', [DispositivoController::class, 'destroy'])->name('ubicaciones.destroy');
 Route::post('/crearUbicacion', [DispositivoController::class, 'crearUbicacion']);
+
+
+/*Parte para el controlador de Incidencias*/
+Route::controller(IncidenciasController::class)->group(function () {
+    Route::get('/incidencias', 'list');
+
+});
+/*Fin controlador de incidencias*/
