@@ -97,7 +97,7 @@
               href="{{ route('listarAveriados') }}"
               target="_blank"
               class="menu-link">
-              <div data-i18n="Logistics">Dispositivos Averiados</div>
+              <div data-i18n="Logistics">Dispositivos Dañados</div>
             </a>
           </li>
           <li class="menu-item">

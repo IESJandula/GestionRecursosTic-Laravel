@@ -5,8 +5,8 @@
     <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
         <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="card-title m-0 me-2">Cantidad de Averiados</h5>
-            </div>
+                <h5 class="card-title m-0 me-2">DISPOSITIVOS DAÑADOS</h5>
+              </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -28,9 +28,6 @@
     </div>
     <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
         <div class="card h-100">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="card-title m-0 me-2">Filtrar por tipo</h5>
-            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -40,8 +37,9 @@
                                 @csrf
                                 <tr>
                                     <td>
+                                        <label for="tipo">Filtrar por nombre: </label>
                                         <select name="tipo" id="tipo">
-                                                <option value="todos">todos</option>
+                                                <option value="todos">Todos</option>
                                             @foreach($contados as $tipo => $cantidad)
                                                 <option value="{{ $tipo }}">{{ $tipo }}</option>
                                             @endforeach
@@ -60,9 +58,6 @@
     </div>
     <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
         <div class="card h-100">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="card-title m-0 me-2">Dispositivos Averiados</h5>
-            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped">

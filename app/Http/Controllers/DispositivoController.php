@@ -82,6 +82,11 @@ class DispositivoController extends Controller
 
 
     /* zona silvia*/
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////V  I  S  T  A     D  I  S  P  O  S  I  T  I  V  O  S    A  V  E  R  I  A  D  O  S////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function listarAveriados()
 {
     $dispositivosAveriados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
@@ -142,7 +147,7 @@ public function reparar($id)
     $dispositivo = Dispositivo::findOrFail($id);
 
     // Cambiar el estado a "reparado" 
-    $dispositivo->estado = 3; // Supongo que 'reparado' es el nombre del estado
+    $dispositivo->estado = 3;
     $dispositivo->save();
 
     // Redirigir a la vista listarAveriados
@@ -154,13 +159,18 @@ public function reparar($id)
         // Obtener el dispositivo por su ID
         $dispositivo = Dispositivo::findOrFail($id);
 
-        // Cambiar el estado a "desechado" (ajusta según tu estructura de base de datos)
+        // Cambiar el estado a "desechado" 
         $dispositivo->estado = 4;
         $dispositivo->save();
 
         // Redirigir a la vista o a donde sea necesario
         return redirect()->route('listarAveriados'); 
     }
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////V  I  S  T  A     A  S  I  G  N  A  R    L  O  C  A  L  I  Z  A  C  I  O  N  E  S////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 
     /*fin zona silvia  */
 
