@@ -3,62 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AdministradoresController extends Controller
 {
+    /* ZONA JOSE */
     /**
-     * Display a listing of the resource.
+     * Agrega un nuevo administrador.
      */
-    public function index()
+    public function agregar(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string',
+            'email' => 'required|email|unique:administradores,email',
+            'password' => 'required|string|min:6',
+        ]);
+
+        Administrador::create([
+            'nombre' => $request->input('nombre'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
+
+        return redirect()->back()->with('success', 'Administrador agregado correctamente.');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    /* FIN ZONA JOSE */
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    /* ZONA SILVIA */
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+
+    /* FIN ZONA SILVIA */
+
+
+    /* ZONA FRANCISCO */
+
+
+
+    /* FIN ZONA FRANCISCO */
+
+
+
+    /* ZONA JUANMA */
+
+
+
+    /* FIN ZONA JUANMA */
 }
