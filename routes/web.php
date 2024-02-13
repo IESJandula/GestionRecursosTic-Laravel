@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Dispositivo;
 use App\Http\Controllers\DispositivoController;
 use App\Http\Controllers\IncidenciasController;
+use App\Http\Controllers\AdministradoresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,3 +75,14 @@ Route::controller(IncidenciasController::class)->group(function () {
 
 });
 /*Fin controlador de incidencias*/
+
+//CONTROLADOR ADMINISTRADORES
+
+// Ruta para mostrar todos los administradores
+Route::get('/administradores', [AdministradoresController::class, 'listarAdministradores'])->name('administradores.listar');
+
+// Ruta para agregar un nuevo administrador
+Route::post('/administradores', [AdministradoresController::class, 'agregarAdministrador'])->name('administradores.agregar');
+
+// Ruta para eliminar un administrador
+Route::delete('/administradores', [AdministradoresController::class, 'eliminarAdministrador'])->name('administradores.eliminar');
