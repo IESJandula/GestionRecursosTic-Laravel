@@ -128,15 +128,9 @@
            <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
           <li class="menu-item">
             <a
-              href=""
+              href="{{url('ubicaciones')}}"
               class="menu-link">
               <div data-i18n="CRM">Administrar ubicaciones</div>
-            </a>
-          </li>
-          <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-          <li class="menu-item">
-            <a href="" class="menu-link">
-              <div data-i18n="Analytics">Añadir Ubicacion</div>
             </a>
           </li>
         </ul>
