@@ -2,7 +2,60 @@
 
 @section('content')
     <!-- Ejemplo de maquetacion de contenido -->
+    <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
+        <div class="card h-100">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="card-title m-0 me-2">DISPOSITIVOS DESECHADOS</h5>
+              </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                @foreach( $contados as $tipo => $cantidad )
+                                <th>{{$tipo}} <span>{{$cantidad}}</span></th>
 
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tbody>
+                            <form action="{{ route('filtrar-por-tipo') }}" method="GET">
+
+                                @csrf
+                                <tr>
+                                    <td>
+                                        <label for="tipo">Filtrar por nombre: </label>
+                                        <select name="tipo" id="tipo">
+                                                <option value="todos">Todos</option>
+                                            @foreach($contados as $tipo => $cantidad)
+                                                <option value="{{ $tipo }}">{{ $tipo }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="submit">Filtrar</button>
+                                    </td>
+                                </tr>
+                            </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
         <div class="card h-100">
             <div class="card-body">
@@ -26,7 +79,7 @@
                                     <td>{{ $dispositivo->num_serie }}</td>
                                     <td>{{ $dispositivo->marca }}</td>
                                     <td>{{ $dispositivo->modelo }}</td>
-                                    <td @class(['averiado' => $dispositivo->nombreestado === 'averiado'])>
+                                    <td @class(['desechado' => $dispositivo->nombreestado === 'desechado'])>
                                         {{ $dispositivo->nombreestado }}
                                     </td>
                                 </tr>
@@ -37,5 +90,4 @@
             </div>
         </div>
     </div>
-    <!--/ Fin de ejemplo de maquetacion de contenido -->
 @endsection
