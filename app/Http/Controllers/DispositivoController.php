@@ -251,8 +251,22 @@ public function asignarUbicacion(Request $request)
     // Puedes redirigir a alguna página después de realizar la asignación
     return redirect()->route('asignar-ubicacion');
 }
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////V  I  S  T  A       L  I  S  T  A  R      D  A  Ñ  A  D  O  S ///////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+public function listarDesechados()
+{
+    $dispositivosDesechados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
+    ->join('tipodispositivos','dispositivo.tipo_dispositivo','=','tipodispositivos.id')
+    ->join('ubicaciones','dispositivo.ubicacion_id','=','ubicaciones.id')
+    ->where('estado_dispositivos.nombre', '=', 'desechado')
+    ->select('dispositivo.*', 'estado_dispositivos.nombre as nombreestado','estado_dispositivos.descripcion as descripcion','tipodispositivos.nombre as nombredispositivo',
+            'ubicaciones.nombre_ubicacion as nombreubicacion')
+    ->get();
 
-    
+    return view('dispositivos.dispositivosDesechados')
+        ->with('dispositivos', $dispositivosDesechados);
+}
 
     /*fin zona silvia  */
 
