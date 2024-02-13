@@ -231,7 +231,7 @@ public function reparar($id)
         ->get();
         $ubicaciones = Ubicacion::leftJoin('dispositivo', 'ubicaciones.id', '=', 'dispositivo.ubicacion_id')
         ->leftJoin('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
-        ->select('ubicaciones.nombre_ubicacion as nombreubicacion')
+        ->select('ubicaciones.nombre_ubicacion as nombreubicacion', 'ubicaciones.id as idubicacion')
         ->distinct()
         ->get();
     
