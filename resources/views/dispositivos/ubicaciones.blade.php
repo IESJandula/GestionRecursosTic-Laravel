@@ -38,7 +38,7 @@
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Descripción</th>
-                                        <th colspan="2">Acciones</th>
+                                        <th colspan="3">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,6 +54,13 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                            {{-- FORMULARIO PARA MOSTRAR LISTADO DE LOS EQUIPOS POR ESA UBICACION --}}
+                                                <form action="{{route('ubicaciones.filtrarPorUbicacion')}}" method="POST">
+                                                    <input type="hidden" name="ubicacion_id" value="{{ $ubicacion->id }}">
+                                                    <button type="submit" class="btn btn-info">Mostrar Equipos</button>
                                                 </form>
                                             </td>
                                             

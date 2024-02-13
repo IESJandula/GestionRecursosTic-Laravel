@@ -78,6 +78,8 @@ Route::get('ubicaciones/{id}/edit', [UbicacionesController::class, 'edit'])->nam
 
 Route::put('ubicaciones/{id}', [UbicacionesController::class, 'update'])->name('ubicaciones.update');
 
+Route::post('/filtrarPorUbicacion', [UbicacionesController::class, 'filtrarPorUbicacion'])->name('ubicaciones.filtrarPorUbicacion');
+
 // Ruta para eliminar una ubicación
 Route::delete('ubicaciones/{id}', [UbicacionesController::class, 'destroy'])->name('ubicaciones.destroy');
 
