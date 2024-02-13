@@ -1,67 +1,84 @@
 @extends('index')
 
 @section('content')
-
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <!-- Columna para añadir nueva incidencia -->
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Añadir Nueva Ubicación</h5>
+                    <h5 class="card-title">Añadir Nueva Incidencia</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('crearUbicacion') }}" method="POST">
+                    <form action="{{ route('mantenimientos.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre de la Ubicación</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre_ubicacion" required>
+                            <label for="tipo_mantenimiento" class="form-label">Tipo de Mantenimiento</label>
+                            <input type="text" class="form-control" id="tipo_mantenimiento" name="tipo_mantenimiento" required>
                         </div>
                         <div class="mb-3">
-                            <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
+                            <label for="ticket_id" class="form-label">ID del Ticket</label>
+                            <input type="text" class="form-control" id="ticket_id" name="ticket_id" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dispositivo_id" class="form-label">ID del Dispositivo</label>
+                            <input type="text" class="form-control" id="dispositivo_id" name="dispositivo_id" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="asignacion_equipo_mantenimiento" class="form-label">Asignación Equipo Mantenimiento</label>
+                            <input type="text" class="form-control" id="asignacion_equipo_mantenimiento" name="asignacion_equipo_mantenimiento" required>
+                        </div>
+                        <!-- Los campos de fecha_inicio y fecha_fin se crearán automáticamente en el controlador -->
+                        <input type="hidden" name="fecha_inicio" value="{{ now() }}">
+                        <input type="hidden" name="fecha_fin" value="">
+                        <div class="mb-3">
+                            <label for="estado" class="form-label">Estado</label>
+                            <input type="text" class="form-control" id="estado" name="estado" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>
                 </div>
             </div>
         </div>
-    <!-- Ejemplo de maquetacion de contenido -->
-    <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
-        <div class="card h-100">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="card-title m-0 me-2">Lista de Mantenimientos</h5>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Tipo de Mantenimiento</th>
-                                <th>Ticket ID</th>
-                                <th>Dispositivo ID</th>
-                                <th>Fecha de Inicio</th>
-                                <th>Fecha de Fin</th>
-                                <th>Asignación Equipo Mantenimiento</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($mantenimientos as $mantenimiento)
+
+        <!-- Columna para mostrar la lista de mantenimientos -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Lista de Mantenimientos</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <td>{{ $mantenimiento->tipo_mantenimiento }}</td>
-                                    <td>{{ $mantenimiento->ticket_id }}</td>
-                                    <td>{{ $mantenimiento->dispositivo_id }}</td>
-                                    <td>{{ $mantenimiento->fecha_inicio }}</td>
-                                    <td>{{ $mantenimiento->fecha_fin }}</td>
-                                    <td>{{ $mantenimiento->asignacion_equipo_mantenimiento }}</td>
-                                    <td>{{ $mantenimiento->estado }}</td>
+                                    <th>Tipo de Mantenimiento</th>
+                                    <th>Ticket ID</th>
+                                    <th>Dispositivo ID</th>
+                                    <th>Fecha de Inicio</th>
+                                    <th>Fecha de Fin</th>
+                                    <th>Asignación Equipo Mantenimiento</th>
+                                    <th>Estado</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach($mantenimientos as $mantenimiento)
+                                    <tr>
+                                        <td>{{ $mantenimiento->tipo_mantenimiento }}</td>
+                                        <td>{{ $mantenimiento->ticket_id }}</td>
+                                        <td>{{ $mantenimiento->dispositivo_id }}</td>
+                                        <td>{{ $mantenimiento->fecha_inicio }}</td>
+                                        <td>{{ $mantenimiento->fecha_fin }}</td>
+                                        <td>{{ $mantenimiento->asignacion_equipo_mantenimiento }}</td>
+                                        <td>{{ $mantenimiento->estado }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Agrega cualquier otro contenido adicional que necesites -->
+</div>
 @endsection
