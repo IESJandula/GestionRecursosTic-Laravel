@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Validation\Rule;
+
 
 class AdministradoresController extends Controller
 {
@@ -11,22 +13,40 @@ class AdministradoresController extends Controller
     /**
      * Agrega un nuevo administrador.
      */
-    public function agregar(Request $request)
-    {
+    public function agregarAdministrador(Request $request){
         $request->validate([
             'nombre' => 'required|string',
-            'email' => 'required|email|unique:administradores,email',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('administradores', 'email'),
+            ],
             'password' => 'required|string|min:6',
+        ], [
+            'email.unique' => 'El correo electrónico ya está en uso. Por favor, utiliza otro.',
         ]);
 
-        Administrador::create([
+        User::create([
             'nombre' => $request->input('nombre'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
         ]);
 
-        return redirect()->back()->with('success', 'Administrador agregado correctamente.');
+        return redirect()->route('administradores.listar')->with('success', 'Administrador agregado exitosamente');
     }
+
+    public function listarAdministradores(){
+        $administradores = User::all();
+        return view('administradores.administradores', compact('administradores'));
+    }
+
+    public function eliminarAdministrador(Request $request){
+    $ids = $request->input('administradores_seleccionados');
+    User::whereIn('id', $ids)->delete();
+
+    return redirect()->route('administradores.listar')->with('success', 'Administradores eliminados exitosamente');
+}
+    
 
 
     /* FIN ZONA JOSE */

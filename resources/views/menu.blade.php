@@ -61,6 +61,12 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
+      <li class="menu-item active open">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Dashboards">HOME</div>
+        </a>
+      </li>
       <!-- Dashboards -->
       <li class="menu-item active open">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -69,15 +75,6 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <a
-              href="{{url('/')}}"
-              class="menu-link">
-              <div data-i18n="CRM">Home</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <a href="{{url('stock')}}" class="menu-link">
               <div data-i18n="Analytics">Dispositivos Stock</div>
             </a>
@@ -98,78 +95,83 @@
           </li>
           <li class="menu-item">
             <a
-
               href="{{ route('asignar-ubicacion') }}"
-              target="_blank"
-
-              href=""
-
               class="menu-link">
               <div data-i18n="Academy">Asignar Ubicacion</div>
             </a>
           </li>
           <li class="menu-item">
-            <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <a
-              href=""
+              href="{{ route('ver-equipos-desechados') }}"
               class="menu-link">
-              <div data-i18n="Logistics">Dump Device</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <a
-              href=""
-              class="menu-link">
-              <div data-i18n="Logistics">Device in the location</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <a
-              href=""
-              target="_blank"
-              class="menu-link">
-              <div data-i18n="Logistics">All Device</div>
+              <div data-i18n="Logistics">Equipos desechados</div>
             </a>
           </li>
         </ul>
       </li>
 
-      <!-- Layouts 
-      <li class="menu-item">
+      <!-- Layouts -->
+      <li class="menu-item active open">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-layout"></i>
-          <div data-i18n="Layouts">Layouts</div>
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Dashboards">ADMINISTRAR LOCALIZACIONES</div>
         </a>
-
         <ul class="menu-sub">
+           <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
           <li class="menu-item">
-            <a href="layouts-without-menu.html" class="menu-link">
-              <div data-i18n="Without menu">Without menu</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="layouts-without-navbar.html" class="menu-link">
-              <div data-i18n="Without navbar">Without navbar</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="layouts-container.html" class="menu-link">
-              <div data-i18n="Container">Container</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="layouts-fluid.html" class="menu-link">
-              <div data-i18n="Fluid">Fluid</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
-              <div data-i18n="Blank">Blank</div>
+            <a
+              href="{{url('ubicaciones')}}"
+              class="menu-link">
+              <div data-i18n="CRM">Administrar ubicaciones</div>
             </a>
           </li>
         </ul>
+      </li>
+      <li class="menu-item active open">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Dashboards">ADMINISTRAR USUARIOS</div>
+        </a>
+        <ul class="menu-sub">
+           <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+          <li class="menu-item">
+            <a
+              href=""
+              class="menu-link">
+              <div data-i18n="CRM">Altas y bajas de usuarios</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item active open">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Dashboards">ADMINISTRAR LOGS</div>
+        </a>
+        <ul class="menu-sub">
+           <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+          <li class="menu-item">
+            <a
+              href=""
+              class="menu-link">
+              <div data-i18n="CRM">Actividad general</div>
+            </a>
+          </li>
+          <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+          <li class="menu-item">
+            <a
+              href=""
+              class="menu-link">
+              <div data-i18n="CRM">Actividad de usuario</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item active open">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Dashboards">NOTIFICACIONES</div>
+        </a>
       </li>
 
       <!- Front Pages -->

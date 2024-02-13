@@ -5,6 +5,7 @@ use App\Models\Dispositivo;
 use App\Http\Controllers\DispositivoController;
 use App\Http\Controllers\IncidenciasController;
 use App\Http\Controllers\UbicacionesController;
+use App\Http\Controllers\AdministradoresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,8 @@ Route::controller(DispositivoController::class)->group(function () {
     Route::get('/filtrar-por-tipo', 'filtrarPorTipo')->name('filtrar-por-tipo');
     Route::get('/asignar-ubicacion', 'listarDispositivosUbicados')->name('asignar-ubicacion');
     Route::get('/asignar-ubicacion-nueva', 'asignarUbicacion')->name('asignar-ubicacion-nueva');
+    Route::get('/ver-equipos-desechados', 'listarDesechados')->name('ver-equipos-desechados');
+
     
     /*Apartado de listar, modificar, añadir y eliminar dispositivo*/
     Route::get('/stock', 'listar');
@@ -83,3 +86,16 @@ Route::delete('ubicaciones/{id}', [UbicacionesController::class, 'destroy'])->na
 Route::get('/mantenimientos', [IncidenciasController::class, 'list'])->name('mantenimientos.list');
 
 /*Fin controlador de incidencias*/
+
+/*Fin controlador de incidencias*/
+
+//CONTROLADOR ADMINISTRADORES
+
+// Ruta para mostrar todos los administradores
+Route::get('/administradores', [AdministradoresController::class, 'listarAdministradores'])->name('administradores.listar');
+
+// Ruta para agregar un nuevo administrador
+Route::post('/administradores', [AdministradoresController::class, 'agregarAdministrador'])->name('administradores.agregar');
+
+// Ruta para eliminar un administrador
+Route::delete('/administradores', [AdministradoresController::class, 'eliminarAdministrador'])->name('administradores.eliminar');

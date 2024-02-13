@@ -16,7 +16,7 @@
                                         <select name="ubicacion" id="ubicacion" class="form-control">
                                             <option value="todos">todos</option>
                                             @foreach($ubicaciones as $ubicacion)
-                                                <option value="{{ $ubicacion }}">{{ $ubicacion->nombreubicacion }}</option>
+                                                <option value="{{ $ubicacion->idubicacion }}">{{ $ubicacion->nombreubicacion }}</option>
                                             @endforeach
                                         </select>
                                     </td>
