@@ -36,59 +36,59 @@
         </div>
         
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Nombre</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($tiposDispositivos as $tipoDispositivo)
-                        <tr>
-                            <form action="{{ route('eliminar.tipos.dispositivos') }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <td> <input type="checkbox" name="tipos_seleccionados[]" value="{{ $tipoDispositivo->id }}"></td>
-                                <button type="submit" class="btn btn-danger m-3">Eliminar</button>
-                            </form>
-                            
-                            <td>{{ $tipoDispositivo->nombre }}</td>
-                    
-                            <!-- Botón de editar -->
-                            <td>
-                                <form action="{{ route('editar.equipo') }}" method="POST">
-                                    @csrf
-                                    <!-- Campo oculto para identificar el equipo a editar -->
-                                    <input type="hidden" name="equipo_id" value="{{ $tipoDispositivo->id }}">
-                        
+            <form action="{{ route('eliminar.tipos.dispositivos') }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($tiposDispositivos as $tipoDispositivo)
+                                <tr>
+                                    <td> 
+                                        <input type="checkbox" name="tipos_seleccionados[]" value="{{ $tipoDispositivo->id }}">
+                                    </td>
+                                    <td>{{ $tipoDispositivo->nombre }}</td>
                                     <!-- Botón de editar -->
-                                    <button type="submit" name="editar_equipo" value="{{ $tipoDispositivo->id }}" class="btn btn-primary">Editar</button>
-                                </form>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
+                                    <td>
+                                        <form action="{{ route('editar.equipo') }}" method="POST">
+                                            @csrf
+                                            <!-- Campo oculto para identificar el equipo a editar -->
+                                            <input type="hidden" name="equipo_id" value="{{ $tipoDispositivo->id }}">
+                                            <!-- Botón de editar -->
+                                            <button type="submit" name="editar_equipo" value="{{ $tipoDispositivo->id }}" class="btn btn-primary">Editar</button>
+                                        </form>
+                                    </td>
+                                </tr>
                                 <!-- Formulario de edición -->
-                                @if (session()->has('editandoEquipo') && session('editandoEquipo') == $tipoDispositivo->id)
-                                    <form action="{{ route('guardar.cambios') }}" method="POST">
-                                        @csrf
-                                        <!-- Campos ocultos para identificar el equipo a editar -->
-                                        <input type="hidden" name="equipo_id" value="{{ $tipoDispositivo->id }}">
-                                        <!-- Campos de edición -->
-                                        <input type="text" name="nombre_editado" value="{{ $tipoDispositivo->nombre }}">
-                                        <input type="text" name="descripcion_editada" value="{{ $tipoDispositivo->descripcion }}">
-                                        <button type="submit">Guardar Cambios</button>
-                                    </form>
-                                @endif
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                                <tr>
+                                    <td colspan="3">
+                                        @if (session()->has('editandoEquipo') && session('editandoEquipo') == $tipoDispositivo->id)
+                                            <form action="{{ route('guardar.cambios') }}" method="POST">
+                                                @csrf
+                                                <!-- Campos ocultos para identificar el equipo a editar -->
+                                                <input type="hidden" name="equipo_id" value="{{ $tipoDispositivo->id }}">
+                                                <!-- Campos de edición -->
+                                                <input type="text" name="nombre_editado" value="{{ $tipoDispositivo->nombre }}">
+                                                <input type="text" name="descripcion_editada" value="{{ $tipoDispositivo->descripcion }}">
+                                                <button type="submit">Guardar Cambios</button>
+                                            </form>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+                <button type="submit" class="btn btn-danger m-3">Eliminar</button>
+            </form>
         </div>
     </div>
 </div>
@@ -96,6 +96,7 @@
 @else
     <p>No hay tipos de dispositivos disponibles.</p>
 @endif
+
 
 
 @endsection
