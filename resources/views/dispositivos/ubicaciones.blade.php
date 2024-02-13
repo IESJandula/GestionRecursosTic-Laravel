@@ -46,14 +46,17 @@
                                         <tr>
                                             <td>{{ $ubicacion->nombre_ubicacion }}</td>
                                             <td>{{ $ubicacion->descripcion }}</td>
-                                            <td><a href="{{ url('ubicaciones.edit', $ubicacion->id) }}" class="btn btn-primary">Editar</a></td>
                                             <td>
-                                                <form action="{{ url('ubicaciones.destroy', $ubicacion->id) }}" method="POST">
+                                                <a href="{{ route('ubicaciones.edit', $ubicacion->id) }}" class="btn btn-primary">Editar</a>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('ubicaciones.destroy', $ubicacion->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                                 </form>
                                             </td>
+                                            
                                         </tr>
                                     @endforeach
                                 </tbody>

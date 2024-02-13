@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Dispositivo;
 use App\Http\Controllers\DispositivoController;
 use App\Http\Controllers\IncidenciasController;
+use App\Http\Controllers\UbicacionesController;
 use App\Http\Controllers\AdministradoresController;
 
 /*
@@ -64,18 +65,28 @@ Route::post('/guardar-cambios', [DispositivoController::class, 'guardarCambios']
     ->name('guardar.cambios');
 
 
-/* Ruta para metodo ubicaciones*/
-Route::get('/ubicaciones', [DispositivoController::class, 'ubicaciones'])->name('dispositivos.ubicaciones');
-Route::get('/ubicaciones/{ubicacion}/edit', [DispositivoController::class, 'edit'])->name('ubicaciones.edit');
-Route::delete('/ubicaciones/{ubicacion}', [DispositivoController::class, 'destroy'])->name('ubicaciones.destroy');
-Route::post('/crearUbicacion', [DispositivoController::class, 'crearUbicacion']);
+/* Rutas para metodo ubicaciones*/
+Route::get('/ubicaciones', [UbicacionesController::class, 'ubicaciones'])->name('dispositivos.ubicaciones');
+
+Route::get('/ubicaciones/{ubicacion}/edit', [UbicacionesController::class, 'edit'])->name('ubicaciones.edit');
+
+Route::delete('/ubicaciones/{ubicacion}', [UbicacionesController::class, 'destroy'])->name('ubicaciones.destroy');
+
+Route::post('/crearUbicacion', [UbicacionesController::class, 'crearUbicacion']);
+
+Route::get('ubicaciones/{id}/edit', [UbicacionesController::class, 'edit'])->name('ubicaciones.edit');
+
+Route::put('ubicaciones/{id}', [UbicacionesController::class, 'update'])->name('ubicaciones.update');
+
+// Ruta para eliminar una ubicación
+Route::delete('ubicaciones/{id}', [UbicacionesController::class, 'destroy'])->name('ubicaciones.destroy');
 
 
 /*Parte para el controlador de Incidencias*/
-Route::controller(IncidenciasController::class)->group(function () {
-    Route::get('/incidencias', 'list');
+Route::get('/mantenimientos', [IncidenciasController::class, 'list'])->name('mantenimientos.list');
 
-});
+/*Fin controlador de incidencias*/
+
 /*Fin controlador de incidencias*/
 
 //CONTROLADOR ADMINISTRADORES

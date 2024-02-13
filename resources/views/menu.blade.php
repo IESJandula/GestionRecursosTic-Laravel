@@ -136,7 +136,7 @@
            <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
           <li class="menu-item">
             <a
-              href=""
+              href="{{url('administradores')}}"
               class="menu-link">
               <div data-i18n="CRM">Altas y bajas de usuarios</div>
             </a>
