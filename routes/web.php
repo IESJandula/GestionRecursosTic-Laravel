@@ -85,9 +85,9 @@ Route::delete('ubicaciones/{id}', [UbicacionesController::class, 'destroy'])->na
 /*Parte para el controlador de Incidencias*/
 Route::get('/mantenimientos', [IncidenciasController::class, 'list'])->name('mantenimientos.list');
 
+Route::post('/mantenimientos', [MantenimientoController::class, 'store'])->name('mantenimientos.store');
 /*Fin controlador de incidencias*/
 
-/*Fin controlador de incidencias*/
 
 //CONTROLADOR ADMINISTRADORES
 
