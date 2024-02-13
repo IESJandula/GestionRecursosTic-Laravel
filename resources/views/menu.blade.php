@@ -75,13 +75,6 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a
-              href="{{url('/')}}"
-              class="menu-link">
-              <div data-i18n="CRM">Home</div>
-            </a>
-          </li>
-          <li class="menu-item">
             <a href="{{url('stock')}}" class="menu-link">
               <div data-i18n="Analytics">Dispositivos Stock</div>
             </a>
@@ -108,9 +101,8 @@
             </a>
           </li>
           <li class="menu-item">
-            <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <a
-              href=""
+              href="{{ route('ver-equipos-desechados') }}"
               class="menu-link">
               <div data-i18n="Logistics">Equipos desechados</div>
             </a>

@@ -30,6 +30,8 @@ Route::controller(DispositivoController::class)->group(function () {
     Route::get('/filtrar-por-tipo', 'filtrarPorTipo')->name('filtrar-por-tipo');
     Route::get('/asignar-ubicacion', 'listarDispositivosUbicados')->name('asignar-ubicacion');
     Route::get('/asignar-ubicacion-nueva', 'asignarUbicacion')->name('asignar-ubicacion-nueva');
+    Route::get('/ver-equipos-desechados', 'listarDesechados')->name('ver-equipos-desechados');
+
     
     /*Apartado de listar, modificar, añadir y eliminar dispositivo*/
     Route::get('/stock', 'listar');
