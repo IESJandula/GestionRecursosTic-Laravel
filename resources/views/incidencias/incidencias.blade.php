@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Columna para añadir nueva incidencia -->
-        <div class="col-md-6">
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Añadir Nueva Incidencia</h5>
@@ -25,8 +25,8 @@
                             <input type="text" class="form-control" id="dispositivo_id" name="dispositivo_id" required>
                         </div>
                         <div class="mb-3">
-                            <label for="asignacion_equipo_mantenimiento" class="form-label">Asignación Equipo Mantenimiento</label>
-                            <input type="text" class="form-control" id="asignacion_equipo_mantenimiento" name="asignacion_equipo_mantenimiento" required>
+                            <label for="asignacion_equipo_mantenimiento_id" class="form-label">Asignación Equipo Mantenimiento</label>
+                            <input type="text" class="form-control" id="asignacion_equipo_mantenimiento_id" name="asignacion_equipo_mantenimiento_id">
                         </div>
                         <!-- Los campos de fecha_inicio y fecha_fin se crearán automáticamente en el controlador -->
                         <input type="hidden" name="fecha_inicio" value="{{ now() }}">
@@ -42,7 +42,7 @@
         </div>
 
         <!-- Columna para mostrar la lista de mantenimientos -->
-        <div class="col-md-6">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Lista de Mantenimientos</h5>
@@ -59,6 +59,7 @@
                                     <th>Fecha de Fin</th>
                                     <th>Asignación Equipo Mantenimiento</th>
                                     <th>Estado</th>
+                                    <th>Accion</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,7 +72,14 @@
                                         <td>{{ $mantenimiento->fecha_fin }}</td>
                                         <td>{{ $mantenimiento->asignacion_equipo_mantenimiento }}</td>
                                         <td>{{ $mantenimiento->estado }}</td>
+                                        <td>
+                                            <form action="{{ route('mantenimientos.destroy', $mantenimiento->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button></td>
+                                        
                                     </tr>
+                                   
                                 @endforeach
                             </tbody>
                         </table>

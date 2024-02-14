@@ -15,7 +15,7 @@ class Mantenimiento extends Model
         'dispositivo_id',
         'fecha_inicio',
         'fecha_fin',
-        'asignacion_equipo_mantenimiento',
+        'asignacion_equipo_mantenimiento_id',
         'estado'
     ];
 
