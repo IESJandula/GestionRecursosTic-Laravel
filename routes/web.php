@@ -1,11 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Models\Dispositivo;
 use App\Http\Controllers\DispositivoController;
 use App\Http\Controllers\IncidenciasController;
 use App\Http\Controllers\UbicacionesController;
 use App\Http\Controllers\AdministradoresController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,16 @@ use App\Http\Controllers\AdministradoresController;
 |
 */
 
+
 Route::get('/', function () {
-    return view('index');
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-
 //grupo de rutas que dirigen a DispositivoController
 Route::controller(DispositivoController::class)->group(function () {
     Route::get('/dispositivos', 'list');
@@ -108,3 +114,5 @@ Route::post('/administradores', [AdministradoresController::class, 'agregarAdmin
 
 // Ruta para eliminar un administrador
 Route::delete('/administradores', [AdministradoresController::class, 'eliminarAdministrador'])->name('administradores.eliminar');
+
+require __DIR__.'/auth.php';
