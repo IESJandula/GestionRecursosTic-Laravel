@@ -1,10 +1,8 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\Mantenimiento;
-
 use Illuminate\Http\Request;
 
 class IncidenciasController extends Controller
@@ -67,6 +65,23 @@ class IncidenciasController extends Controller
         return redirect()->route('mantenimientos.store')->with('success', '¡Incidencia eliminada correctamente!');
     }
 
+    public function edit($id)
+    {
+        $mantenimiento = Mantenimiento::findOrFail($id);
+        return view('incidencias.edit', compact('mantenimiento'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $mantenimiento = Mantenimiento::findOrFail($id);
+        $mantenimiento->tipo_mantenimiento = $request->input('tipo_mantenimiento');
+        $mantenimiento->ticket_id = $request->input('ticket_id');
+        $mantenimiento->dispositivo_id = $request->input('dispositivo_id');
+
+        $mantenimiento->save();
+
+        return redirect()->route('mantenimientos.list')->with('success', '¡Datos actualizados correctamente!');
+    }
 
     //fin zona juanma
 
