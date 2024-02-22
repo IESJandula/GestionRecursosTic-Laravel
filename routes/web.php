@@ -96,10 +96,12 @@ Route::get('/mantenimientos', [IncidenciasController::class, 'list'])->name('man
 Route::post('/mantenimientos', [IncidenciasController::class, 'store'])->name('mantenimientos.store');
 
 Route::get('mantenimientos/{id}/edit', [IncidenciasController::class, 'edit'])->name('mantenimientos.edit');
+
 Route::put('mantenimientos/{id}', [IncidenciasController::class, 'update'])->name('mantenimientos.update');
 
-
 Route::delete('/mantenimientos/{id}', [IncidenciasController::class, 'destroy'])->name('mantenimientos.destroy');
+
+
 
 /*Fin controlador de incidencias*/
 
