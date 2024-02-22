@@ -42,6 +42,9 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
     
         $request->session()->regenerateToken();
+
+        cookie()->forget('laravel_session');
+
     
         return view('auth.login'); // o cualquier otra URL
     }

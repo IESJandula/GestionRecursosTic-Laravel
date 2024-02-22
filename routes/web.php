@@ -7,6 +7,7 @@ use App\Http\Controllers\UbicacionesController;
 use App\Http\Controllers\AdministradoresController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::delete('/logout', [ProfileController::class, 'destroy'])->name('logout')->middleware('web');
+Route::delete('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('web');
 
 
 
