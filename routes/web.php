@@ -34,7 +34,6 @@ Route::middleware('auth')->group(function () {
 Route::delete('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 
-
 // Grupo de rutas para DispositivoController con middleware 'auth'
 Route::middleware(['auth'])->group(function () {
     Route::get('/dispositivos', [DispositivoController::class, 'list']);
