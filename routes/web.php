@@ -30,8 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::delete('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('web');
 
+Route::delete('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 
 // Grupo de rutas para DispositivoController con middleware 'auth'
