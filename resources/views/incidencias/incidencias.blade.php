@@ -35,11 +35,11 @@
                                             <td>{{ $mantenimiento->asignacion_equipo_mantenimiento }}</td>
                                             <td>{{ $mantenimiento->estado }}</td>
                                             <td>
-                                                <form action="{{ route('mantenimientos.destroy', $mantenimiento->id) }}"
-                                                    method="POST">
+                                                <form action="{{ route('mantenimientos.destroy', $mantenimiento->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                                </form>
                                             </td>
                                             <td>
                                                 <a href="{{ route('mantenimientos.edit', $mantenimiento->id) }}" class="btn btn-primary">Editar</a>

@@ -126,6 +126,9 @@ Route::put('mantenimientos/{id}', [IncidenciasController::class, 'update'])->nam
 Route::delete('/mantenimientos/{id}', [IncidenciasController::class, 'destroy'])->name('mantenimientos.destroy');
 
 
+Route::get('/nuevaIncidencia', [IncidenciasController::class, 'create'])->name('mantenimientos.create');
+
+
 
 /*Fin controlador de incidencias*/
 
@@ -147,6 +150,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/administradores', [AdministradoresController::class, 'agregarAdministrador'])->name('administradores.agregar');
     Route::delete('/administradores', [AdministradoresController::class, 'eliminarAdministrador'])->name('administradores.eliminar');
 });
-
 
 require __DIR__.'/auth.php';

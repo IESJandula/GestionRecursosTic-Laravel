@@ -28,6 +28,9 @@ class IncidenciasController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'tipo_mantenimiento' => 'required', // Asegura que 'tipo_mantenimiento' no sea nulo
+        ]);
         // Crear una nueva instancia de Mantenimiento
         $mantenimiento = new Mantenimiento();
         $mantenimiento->tipo_mantenimiento = $request->input('tipo_mantenimiento');
@@ -53,9 +56,16 @@ class IncidenciasController extends Controller
     
     }
 
+    public function create()
+{
+    return view('incidencias.nuevaIncidencia');
+}
+
+
     //borrar incidencia
     public function destroy($id)
     {
+      
         // Busca la incidencia por su ID
         $mantenimiento = Mantenimiento::findOrFail($id);
 
