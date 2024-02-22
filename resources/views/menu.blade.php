@@ -66,6 +66,17 @@
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Dashboards">HOME</div>
         </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <form id="delete-form" action="{{ route('logout') }}" method="post">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="bg-danger">Cerrar sesión</button>
+          </form>
+          
+          
+          </li>
+        </ul>
       </li>
       <!-- Dashboards -->
       <li class="menu-item active open">
