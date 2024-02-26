@@ -151,4 +151,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/administradores', [AdministradoresController::class, 'eliminarAdministrador'])->name('administradores.eliminar');
 });
 
+
+//RUTA NUEVA INCIDENCIA
+
+Route::get('/incidencias',  [IncidenciasController::class, 'nuevaIncidencia'])->name('incidencias');
+
 require __DIR__.'/auth.php';

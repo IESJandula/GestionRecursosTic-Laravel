@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mantenimiento;
+use App\Models\Dispositivo;
 use Illuminate\Http\Request;
 
 class IncidenciasController extends Controller
@@ -21,6 +22,22 @@ class IncidenciasController extends Controller
     //fin zona silvia
 
     //zona jose
+
+    public function mostrarDispositivos(){
+        $dispositivos = Dispositivo::join('ubicaciones','dispositivo.ubicacion_id','=','ubicaciones.id')
+            ->join('tipodispositivos','dispositivo.tipo_dispositivo','=','tipodispositivos.id')
+            ->select('dispositivo.*','ubicaciones.nombre_ubicacion as nombreubicacion', 'tipodispositivos.nombre as nombredispositivo','tipodispositivos.descripcion as descripcion')
+            ->get();
+        return $dispositivos;
+    }
+    
+    
+    public function nuevaIncidencia(){
+        $dispositivos = $this->mostrarDispositivos();
+        return view('incidencias')->with('dispositivos', $dispositivos);
+    }
+
+
 
     //fin zona jose
 
