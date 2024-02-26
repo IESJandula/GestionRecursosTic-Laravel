@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
+        <div class="row justify-content-center"> <!-- Centra el contenido horizontalmente -->
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Añadir Nueva Incidencia</h5>
@@ -35,7 +35,6 @@
                             <input type="hidden" name="fecha_inicio" value="{{ now() }}">
                             <input type="hidden" name="fecha_fin" value="">
                             <div class="mb-3">
-
                                 <input type="hidden" class="form-control" id="estado" name="estado" value="Abierta"
                                     required>
                             </div>
@@ -48,3 +47,4 @@
         </div>
     </div>
 @endsection
+

@@ -47,7 +47,9 @@
                 {{ __('Iniciar Sesión') }}
             </x-primary-button>
             <x-danger-button class="ms-3">
+
                 <a href="{{ url('nuevaIncidencia') }}" class="text-white" style="text-decoration: none;">Nueva Incidencia</a>
+
             </x-danger-button>
         </div>
     </form>

@@ -30,8 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::delete('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('web');
 
+Route::delete('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 
 // Grupo de rutas para DispositivoController con middleware 'auth'
@@ -126,6 +126,9 @@ Route::put('mantenimientos/{id}', [IncidenciasController::class, 'update'])->nam
 Route::delete('/mantenimientos/{id}', [IncidenciasController::class, 'destroy'])->name('mantenimientos.destroy');
 
 
+Route::get('/nuevaIncidencia', [IncidenciasController::class, 'create'])->name('mantenimientos.create');
+
+
 
 /*Fin controlador de incidencias*/
 
@@ -158,5 +161,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/nuevaIncidencia', function () {
     return view('incidencias.nuevaIncidencia');
 })->name('nuevaIncidencia');
+
+//RUTA NUEVA INCIDENCIA
+
+Route::get('/incidencias',  [IncidenciasController::class, 'nuevaIncidencia'])->name('incidencias');
 
 require __DIR__.'/auth.php';

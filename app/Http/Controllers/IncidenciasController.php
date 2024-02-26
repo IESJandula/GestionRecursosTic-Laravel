@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mantenimiento;
+use App\Models\Dispositivo;
 use Illuminate\Http\Request;
 use App\Models\LogActividad;
 use Carbon\Carbon;
@@ -24,12 +25,31 @@ class IncidenciasController extends Controller
 
     //zona jose
 
+    public function mostrarDispositivos(){
+        $dispositivos = Dispositivo::join('ubicaciones','dispositivo.ubicacion_id','=','ubicaciones.id')
+            ->join('tipodispositivos','dispositivo.tipo_dispositivo','=','tipodispositivos.id')
+            ->select('dispositivo.*','ubicaciones.nombre_ubicacion as nombreubicacion', 'tipodispositivos.nombre as nombredispositivo','tipodispositivos.descripcion as descripcion')
+            ->get();
+        return $dispositivos;
+    }
+    
+    
+    public function nuevaIncidencia(){
+        $dispositivos = $this->mostrarDispositivos();
+        return view('incidencias')->with('dispositivos', $dispositivos);
+    }
+
+
+
     //fin zona jose
 
     //zona juanma
 
     public function store(Request $request)
     {
+        $request->validate([
+            'tipo_mantenimiento' => 'required', // Asegura que 'tipo_mantenimiento' no sea nulo
+        ]);
         // Crear una nueva instancia de Mantenimiento
         $mantenimiento = new Mantenimiento();
         $mantenimiento->tipo_mantenimiento = $request->input('tipo_mantenimiento');
@@ -60,9 +80,16 @@ class IncidenciasController extends Controller
     
     }
 
+    public function create()
+{
+    return view('incidencias.nuevaIncidencia');
+}
+
+
     //borrar incidencia
     public function destroy($id)
     {
+      
         // Busca la incidencia por su ID
         $mantenimiento = Mantenimiento::findOrFail($id);
 

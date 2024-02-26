@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -37,16 +38,16 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        Auth::logout();
     
         $request->session()->invalidate();
     
         $request->session()->regenerateToken();
 
-        cookie()->forget('laravel_session');
+        cookie()->forget('sistema_libros_session');
 
     
-        return view('auth.login'); // o cualquier otra URL
+        return Redirect::route('dashboard'); // o cualquier otra URL
     }
     
 }
