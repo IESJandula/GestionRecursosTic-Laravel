@@ -33,7 +33,20 @@
                                             <td>{{ $mantenimiento->fecha_inicio }}</td>
                                             <td>{{ $mantenimiento->fecha_fin }}</td>
                                             <td>{{ $mantenimiento->asignacion_equipo_mantenimiento }}</td>
-                                            <td>{{ $mantenimiento->estado }}</td>
+                                            <td>
+                                                @if ($mantenimiento->estado == 'Abierta')
+                                                    <span class="btn btn-primary"
+                                                        disabled>{{ $mantenimiento->estado }}</span>
+                                                @elseif ($mantenimiento->estado == 'Inservible')
+                                                    <span class="btn btn-danger"
+                                                        disabled>{{ $mantenimiento->estado }}</span>
+                                                @elseif ($mantenimiento->estado == 'Cerrada')
+                                                    <span class="btn btn-success"
+                                                        disabled>{{ $mantenimiento->estado }}</span>
+                                                @else
+                                                    {{ $mantenimiento->estado }}
+                                                @endif
+                                            </td>
                                             <td>
                                                 <form action="{{ route('mantenimientos.destroy', $mantenimiento->id) }}"
                                                     method="POST">
@@ -42,9 +55,10 @@
                                                     <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                             </td>
                                             <td>
-                                                <a href="{{ route('mantenimientos.edit', $mantenimiento->id) }}" class="btn btn-primary">Editar</a>
+                                                <a href="{{ route('mantenimientos.edit', $mantenimiento->id) }}"
+                                                    class="btn btn-primary">Editar</a>
                                             </td>
-                                            
+
                                         </tr>
                                     @endforeach
                                 </tbody>

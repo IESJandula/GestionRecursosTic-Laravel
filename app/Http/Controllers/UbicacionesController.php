@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Ubicacion;
-
+use App\Models\Dispositivo;
+use App\Models\LogActividad;
+use Carbon\Carbon;
 
 class UbicacionesController extends Controller
 {
@@ -71,6 +73,10 @@ class UbicacionesController extends Controller
         $ubicacion->nombre_ubicacion = $request->input('nombre_ubicacion');
         $ubicacion->descripcion = $request->input('descripcion');
         
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Actualizada la ubicación ' . $ubicacion->nombre_ubicacion;
+        $newActivity->save();
         // Guardar los cambios en la ubicación
         $ubicacion->save();
 
@@ -87,6 +93,11 @@ class UbicacionesController extends Controller
         $ubicacion = Ubicacion::findOrFail($id);
         
         // Eliminar la ubicación
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Creada la ubicación ' . $ubicacion->nombre_ubicacion;
+        $newActivity->save();
+        
         $ubicacion->delete();
 
         // Redirigir a alguna vista o ruta apropiada
@@ -132,6 +143,12 @@ class UbicacionesController extends Controller
         $ubicacion->descripcion = $request->input('descripcion');
 
         // Guardar la ubicación en la base de datos
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Creada la ubicación ' . $ubicacion->nombre_ubicacion;
+        $newActivity->save();
+        
+
         $ubicacion->save();
 
         // Redirigir a alguna vista o ruta apropiada

@@ -40,7 +40,11 @@
                                     required>
                             </div>
                             <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a href="{{url('login')}}" class="btn btn-danger">Volver a inicio</a>
                         </form>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+@endsection
