@@ -9,7 +9,8 @@ use App\Models\Dispositivo;
 use App\Models\Ubicacion;
 
 use App\Models\TipoDispositivo;
-
+use App\Models\LogActividad;
+use Carbon\Carbon;
 
 
 class DispositivoController extends Controller
@@ -18,15 +19,15 @@ class DispositivoController extends Controller
     public function list()
     {
         $dispositivos = dispositivo::all();
-        $ubicaciones = Ubicacion::all(); 
+        $ubicaciones = Ubicacion::all();
         return view('dispositivos.listaDispositivos', compact('dispositivos', 'ubicaciones'));
     }
     /*LISTAR LOS DISPOSITIVOS////////////////////////////////////////*/
     public function listar()
     {
         $dispositivos = dispositivo::all();
-        $ubicaciones = Ubicacion::all(); 
-        $tipos_dispositivos= TipoDispositivo::all();
+        $ubicaciones = Ubicacion::all();
+        $tipos_dispositivos = TipoDispositivo::all();
         return view('dispositivos.stock', compact('dispositivos', 'ubicaciones', 'tipos_dispositivos'));
     }
     /*AÑADIR LOS DISPOSITIVOS////////////////////////////////////////*/
@@ -66,25 +67,30 @@ class DispositivoController extends Controller
         $updateDispositivo->tipo_dispositivo = $request->tipo_dispositivo;
         $updateDispositivo->num_serie = $request->num_serie;
         $updateDispositivo->modelo = $request->modelo;
-        $updateDispositivo->marca = $request->marca; 
+        $updateDispositivo->marca = $request->marca;
         $updateDispositivo->fecha_adquisicion = $request->fecha_adquisicion;
         $updateDispositivo->estado = $request->estado; // Si este campo está en el formulario
         $updateDispositivo->ubicacion_id = $request->ubicacion_id;
         $updateDispositivo->cod_barras = $request->cod_barras;
         $updateDispositivo->observaciones = $request->observaciones;
 
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Actualizado dispositivo ' . $updateDispositivo->num_serie;
+        $newActivity->save();
         // Guardar el modelo en la base de datos
         $updateDispositivo->save();
 
         // Redireccionar a la página deseada después de guardar
         return redirect('stock')->with('success', '¡Datos actualizados correctamente!');
     }
-    
+
 
     public function insertDispositivos(Request $request)
     {
+
         // Validar los datos del formulario
-    /*    $request->validate([
+        /*    $request->validate([
             'tipo_dispositivo' => 'required',
             'num_serie' => 'required',
             'modelo' => 'required',
@@ -101,19 +107,22 @@ class DispositivoController extends Controller
         $newDispositivo->tipo_dispositivo = $request->tipo_dispositivo;
         $newDispositivo->num_serie = $request->num_serie;
         $newDispositivo->modelo = $request->modelo;
-        $newDispositivo->marca = $request->marca; 
+        $newDispositivo->marca = $request->marca;
         $newDispositivo->fecha_adquisicion = $request->fecha_adquisicion;
         $newDispositivo->estado = $request->estado; // Si este campo está en el formulario
         $newDispositivo->ubicacion_id = $request->ubicacion_id;
         $newDispositivo->cod_barras = $request->cod_barras;
         $newDispositivo->observaciones = $request->observaciones;
 
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Añadido dispositivo ' . $newDispositivo->num_serie;
+        $newActivity->save();
         // Guardar el modelo en la base de datos
         $newDispositivo->save();
 
         // Redireccionar a la página deseada después de guardar
         return redirect('stock')->with('success', '¡Datos guardados correctamente!');
-
     }
 
     /*MODIFICAR LOS DISPOSITIVOS////////////////////////////////////////*/
@@ -128,6 +137,12 @@ class DispositivoController extends Controller
     {
         $dispositivo = Dispositivo::findOrFail($id);
         $dispositivo->delete();
+
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Eliminado el dispositivo dispositivo ' . $dispositivo->num_serie;
+        $newActivity->save();
+
         return redirect('stock')->with('success', '¡Dispositivo eliminado correctamente!');
     }
     /*fin zona fran  */
@@ -141,71 +156,81 @@ class DispositivoController extends Controller
     ////////////////V  I  S  T  A     D  I  S  P  O  S  I  T  I  V  O  S    A  V  E  R  I  A  D  O  S////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function listarAveriados()
-{
-    $dispositivosAveriados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
-        ->join('tipodispositivos','dispositivo.tipo_dispositivo','=','tipodispositivos.id')
-        ->join('ubicaciones','dispositivo.ubicacion_id','=','ubicaciones.id')
-        ->where('estado_dispositivos.nombre', '=', 'averiado')
-        ->select('dispositivo.*', 'estado_dispositivos.nombre as nombreestado','estado_dispositivos.descripcion as descripcion','tipodispositivos.nombre as nombredispositivo',
-                'ubicaciones.nombre_ubicacion as nombreubicacion')
-        ->get();
+    {
+        $dispositivosAveriados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
+            ->join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+            ->join('ubicaciones', 'dispositivo.ubicacion_id', '=', 'ubicaciones.id')
+            ->where('estado_dispositivos.nombre', '=', 'averiado')
+            ->select(
+                'dispositivo.*',
+                'estado_dispositivos.nombre as nombreestado',
+                'estado_dispositivos.descripcion as descripcion',
+                'tipodispositivos.nombre as nombredispositivo',
+                'ubicaciones.nombre_ubicacion as nombreubicacion'
+            )
+            ->get();
 
-    $contados = $this->contarUnidadesAveriadas();
+        $contados = $this->contarUnidadesAveriadas();
 
-    return view('dispositivos.dispositivosAveriados')
-        ->with('dispositivos', $dispositivosAveriados)
-        ->with('contados', $contados);
-}
+        return view('dispositivos.dispositivosAveriados')
+            ->with('dispositivos', $dispositivosAveriados)
+            ->with('contados', $contados);
+    }
 
-public function filtrarPorTipo(Request $request)
-{
-    $tipoSeleccionado = $request->input('tipo');
+    public function filtrarPorTipo(Request $request)
+    {
+        $tipoSeleccionado = $request->input('tipo');
 
-    // Obtener dispositivos filtrados por el tipo seleccionado
-    $dispositivosFiltrados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
-        ->join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
-        ->join('ubicaciones', 'dispositivo.ubicacion_id', '=', 'ubicaciones.id')
-        ->where('estado_dispositivos.nombre', '=', 'averiado')
-        ->when($tipoSeleccionado != 'todos', function ($query) use ($tipoSeleccionado) {
-            return $query->where('tipodispositivos.nombre', '=', $tipoSeleccionado);
-        })
-        ->select('dispositivo.*', 'estado_dispositivos.nombre as nombreestado', 'estado_dispositivos.descripcion as descripcion', 'tipodispositivos.nombre as nombredispositivo', 'ubicaciones.nombre_ubicacion as nombreubicacion')
-        ->get();
+        // Obtener dispositivos filtrados por el tipo seleccionado
+        $dispositivosFiltrados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
+            ->join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+            ->join('ubicaciones', 'dispositivo.ubicacion_id', '=', 'ubicaciones.id')
+            ->where('estado_dispositivos.nombre', '=', 'averiado')
+            ->when($tipoSeleccionado != 'todos', function ($query) use ($tipoSeleccionado) {
+                return $query->where('tipodispositivos.nombre', '=', $tipoSeleccionado);
+            })
+            ->select('dispositivo.*', 'estado_dispositivos.nombre as nombreestado', 'estado_dispositivos.descripcion as descripcion', 'tipodispositivos.nombre as nombredispositivo', 'ubicaciones.nombre_ubicacion as nombreubicacion')
+            ->get();
 
-    // Retornar la vista con los resultados filtrados
-    $contados = $this->contarUnidadesAveriadas();
+        // Retornar la vista con los resultados filtrados
+        $contados = $this->contarUnidadesAveriadas();
 
-    return view('dispositivos.dispositivosAveriados')
-        ->with('dispositivos', $dispositivosFiltrados)
-        ->with('contados', $contados);
-}
+        return view('dispositivos.dispositivosAveriados')
+            ->with('dispositivos', $dispositivosFiltrados)
+            ->with('contados', $contados);
+    }
 
-public function contarUnidadesAveriadas()
-{
-     $contados= Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
-     ->join('tipodispositivos','dispositivo.tipo_dispositivo','=','tipodispositivos.id')
-     ->join('ubicaciones','dispositivo.ubicacion_id','=','ubicaciones.id')
-     ->where('estado_dispositivos.nombre', '=', 'averiado')
-     ->select('dispositivo.*', 'estado_dispositivos.nombre as nombreestado','estado_dispositivos.descripcion as descripcion','tipodispositivos.nombre as nombredispositivo',
-             'ubicaciones.nombre_ubicacion as nombreubicacion')
-     ->get();
-    return $contados->groupBy('nombredispositivo')->map->count();
-}
+    public function contarUnidadesAveriadas()
+    {
+        $contados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
+            ->join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+            ->join('ubicaciones', 'dispositivo.ubicacion_id', '=', 'ubicaciones.id')
+            ->where('estado_dispositivos.nombre', '=', 'averiado')
+            ->select(
+                'dispositivo.*',
+                'estado_dispositivos.nombre as nombreestado',
+                'estado_dispositivos.descripcion as descripcion',
+                'tipodispositivos.nombre as nombredispositivo',
+                'ubicaciones.nombre_ubicacion as nombreubicacion'
+            )
+            ->get();
+        return $contados->groupBy('nombredispositivo')->map->count();
+    }
 
 
-    
-public function reparar($id)
-{
-    // Obtener el dispositivo por su ID
-    $dispositivo = Dispositivo::findOrFail($id);
 
-    // Cambiar el estado a "reparado" 
-    $dispositivo->estado = 3;
-    $dispositivo->save();
+    public function reparar($id)
+    {
+        // Obtener el dispositivo por su ID
+        $dispositivo = Dispositivo::findOrFail($id);
 
-    // Redirigir a la vista listarAveriados
-    return redirect()->route('listarAveriados'); 
-}
+        // Cambiar el estado a "reparado" 
+        $dispositivo->estado = 3;
+        $dispositivo->save();
+
+        // Redirigir a la vista listarAveriados
+        return redirect()->route('listarAveriados');
+    }
 
     public function desechar($id)
     {
@@ -217,94 +242,109 @@ public function reparar($id)
         $dispositivo->save();
 
         // Redirigir a la vista o a donde sea necesario
-        return redirect()->route('listarAveriados'); 
+        return redirect()->route('listarAveriados');
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////V  I  S  T  A     A  S  I  G  N  A  R    L  O  C  A  L  I  Z  A  C  I  O  N  E  S////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function listarDispositivosUbicados()
-{
-    $dispositivos = Dispositivo::join('ubicaciones','dispositivo.ubicacion_id','=','ubicaciones.id')
-        ->join('tipodispositivos','dispositivo.tipo_dispositivo','=','tipodispositivos.id')
-        ->select('dispositivo.*','ubicaciones.nombre_ubicacion as nombreubicacion', 'tipodispositivos.nombre as nombredispositivo','tipodispositivos.descripcion as descripcion')
-        ->get();
+    {
+        $dispositivos = Dispositivo::join('ubicaciones', 'dispositivo.ubicacion_id', '=', 'ubicaciones.id')
+            ->join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+            ->select('dispositivo.*', 'ubicaciones.nombre_ubicacion as nombreubicacion', 'tipodispositivos.nombre as nombredispositivo', 'tipodispositivos.descripcion as descripcion')
+            ->get();
         $ubicaciones = Ubicacion::leftJoin('dispositivo', 'ubicaciones.id', '=', 'dispositivo.ubicacion_id')
-        ->leftJoin('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
-        ->select('ubicaciones.nombre_ubicacion as nombreubicacion', 'ubicaciones.id as idubicacion')
-        ->distinct()
-        ->get();
-    
-    return view('dispositivos.asignarUbicacion', [
-        'dispositivos' => $dispositivos,
-        'ubicaciones' => $ubicaciones,
-    ]);
-}
-public function asignarUbicacion(Request $request)
-{
-    $ubicacionNueva = $request->input('ubicacion');
-    $dispositivosSeleccionados = $request->input('dispositivos_seleccionados');
+            ->leftJoin('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+            ->select('ubicaciones.nombre_ubicacion as nombreubicacion', 'ubicaciones.id as idubicacion')
+            ->distinct()
+            ->get();
 
-    // Actualizar ubicación de dispositivos seleccionados
-    Dispositivo::whereIn('id', $dispositivosSeleccionados)->update(['ubicacion_id' => $ubicacionNueva]);
+        return view('dispositivos.asignarUbicacion', [
+            'dispositivos' => $dispositivos,
+            'ubicaciones' => $ubicaciones,
+        ]);
+    }
+    public function asignarUbicacion(Request $request)
+    {
+        $ubicacionNueva = $request->input('ubicacion');
+        $dispositivosSeleccionados = $request->input('dispositivos_seleccionados');
 
-    // Puedes redirigir a alguna página después de realizar la asignación
-    return redirect()->route('asignar-ubicacion');
-}
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////V  I  S  T  A       L  I  S  T  A  R      D  E  S  E  C  H  A  D  O  S////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-public function listarDesechados()
-{
-    $dispositivosDesechados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
-    ->join('tipodispositivos','dispositivo.tipo_dispositivo','=','tipodispositivos.id')
-    ->join('ubicaciones','dispositivo.ubicacion_id','=','ubicaciones.id')
-    ->where('estado_dispositivos.nombre', '=', 'desechado')
-    ->select('dispositivo.*', 'estado_dispositivos.nombre as nombreestado','estado_dispositivos.descripcion as descripcion','tipodispositivos.nombre as nombredispositivo',
-            'ubicaciones.nombre_ubicacion as nombreubicacion')
-    ->get();
+        // Actualizar ubicación de dispositivos seleccionados
+        Dispositivo::whereIn('id', $dispositivosSeleccionados)->update(['ubicacion_id' => $ubicacionNueva]);
 
-    $contados = $this->contarUnidadesDesechadas();
 
-    return view('dispositivos.dispositivosDesechados')
-        ->with('dispositivos', $dispositivosDesechados)
-        ->with('contados', $contados);
-}
+        /*$newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Actualizada la ubicación del dispositivo';
+        $newActivity->save();*/
+        // Puedes redirigir a alguna página después de realizar la asignación
+        return redirect()->route('asignar-ubicacion');
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////V  I  S  T  A       L  I  S  T  A  R      D  E  S  E  C  H  A  D  O  S////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function listarDesechados()
+    {
+        $dispositivosDesechados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
+            ->join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+            ->join('ubicaciones', 'dispositivo.ubicacion_id', '=', 'ubicaciones.id')
+            ->where('estado_dispositivos.nombre', '=', 'desechado')
+            ->select(
+                'dispositivo.*',
+                'estado_dispositivos.nombre as nombreestado',
+                'estado_dispositivos.descripcion as descripcion',
+                'tipodispositivos.nombre as nombredispositivo',
+                'ubicaciones.nombre_ubicacion as nombreubicacion'
+            )
+            ->get();
 
-public function filtrarDesechadosPorTipo(Request $request)
-{
-    $tipoSeleccionado = $request->input('tipo');
+        $contados = $this->contarUnidadesDesechadas();
 
-    // Obtener dispositivos filtrados por el tipo seleccionado
-    $dispositivosFiltrados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
-        ->join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
-        ->join('ubicaciones', 'dispositivo.ubicacion_id', '=', 'ubicaciones.id')
-        ->where('estado_dispositivos.nombre', '=', 'averiado')
-        ->when($tipoSeleccionado != 'todos', function ($query) use ($tipoSeleccionado) {
-            return $query->where('tipodispositivos.nombre', '=', $tipoSeleccionado);
-        })
-        ->select('dispositivo.*', 'estado_dispositivos.nombre as nombreestado', 'estado_dispositivos.descripcion as descripcion', 'tipodispositivos.nombre as nombredispositivo', 'ubicaciones.nombre_ubicacion as nombreubicacion')
-        ->get();
+        return view('dispositivos.dispositivosDesechados')
+            ->with('dispositivos', $dispositivosDesechados)
+            ->with('contados', $contados);
+    }
 
-    // Retornar la vista con los resultados filtrados
-    $contados = $this->contarUnidadesDesechadas();
+    public function filtrarDesechadosPorTipo(Request $request)
+    {
+        $tipoSeleccionado = $request->input('tipo');
 
-    return view('dispositivos.dispositivosDesechados')
-        ->with('dispositivos', $dispositivosFiltrados)
-        ->with('contados', $contados);
-}
+        // Obtener dispositivos filtrados por el tipo seleccionado
+        $dispositivosFiltrados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
+            ->join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+            ->join('ubicaciones', 'dispositivo.ubicacion_id', '=', 'ubicaciones.id')
+            ->where('estado_dispositivos.nombre', '=', 'averiado')
+            ->when($tipoSeleccionado != 'todos', function ($query) use ($tipoSeleccionado) {
+                return $query->where('tipodispositivos.nombre', '=', $tipoSeleccionado);
+            })
+            ->select('dispositivo.*', 'estado_dispositivos.nombre as nombreestado', 'estado_dispositivos.descripcion as descripcion', 'tipodispositivos.nombre as nombredispositivo', 'ubicaciones.nombre_ubicacion as nombreubicacion')
+            ->get();
 
-public function contarUnidadesDesechadas()
-{
-     $contados= Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
-     ->join('tipodispositivos','dispositivo.tipo_dispositivo','=','tipodispositivos.id')
-     ->join('ubicaciones','dispositivo.ubicacion_id','=','ubicaciones.id')
-     ->where('estado_dispositivos.nombre', '=', 'desechado')
-     ->select('dispositivo.*', 'estado_dispositivos.nombre as nombreestado','estado_dispositivos.descripcion as descripcion','tipodispositivos.nombre as nombredispositivo',
-             'ubicaciones.nombre_ubicacion as nombreubicacion')
-     ->get();
-    return $contados->groupBy('nombredispositivo')->map->count();
-}
+        // Retornar la vista con los resultados filtrados
+        $contados = $this->contarUnidadesDesechadas();
+
+        return view('dispositivos.dispositivosDesechados')
+            ->with('dispositivos', $dispositivosFiltrados)
+            ->with('contados', $contados);
+    }
+
+    public function contarUnidadesDesechadas()
+    {
+        $contados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
+            ->join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+            ->join('ubicaciones', 'dispositivo.ubicacion_id', '=', 'ubicaciones.id')
+            ->where('estado_dispositivos.nombre', '=', 'desechado')
+            ->select(
+                'dispositivo.*',
+                'estado_dispositivos.nombre as nombreestado',
+                'estado_dispositivos.descripcion as descripcion',
+                'tipodispositivos.nombre as nombredispositivo',
+                'ubicaciones.nombre_ubicacion as nombreubicacion'
+            )
+            ->get();
+        return $contados->groupBy('nombredispositivo')->map->count();
+    }
 
 
     /*fin zona silvia  */
@@ -326,6 +366,11 @@ public function contarUnidadesDesechadas()
 
         $tipoDispositivo->save();
 
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Añadida categoría ' . $tipoDispositivo->nombre;
+        $newActivity->save();
+
         return redirect()->route('mostrar.tipos.dispositivos')->with('success', 'Equipo agregado exitosamente');
     }
 
@@ -341,7 +386,7 @@ public function contarUnidadesDesechadas()
     {
         // Obtener los IDs de los tipos de dispositivos seleccionados desde el formulario
         $tiposSeleccionados = $request->input('tipos_seleccionados', []);
-        
+
         // Eliminar los tipos de dispositivos seleccionados de la base de datos
         TipoDispositivo::whereIn('id', $tiposSeleccionados)->delete();
 
@@ -349,40 +394,46 @@ public function contarUnidadesDesechadas()
         return redirect()->back()->with('success', 'Dispositivos eliminados exitosamente');
     }
 
-    public function editarEquipo(Request $request) {
+    public function editarEquipo(Request $request)
+    {
         if ($request->has('editar_equipo')) {
             $equipoId = $request->input('equipo_id');
-            
+
             // Establece una variable de sesión para indicar que se está editando un equipo
             session(['editandoEquipo' => $equipoId]);
         } else {
             // Si no se está editando, elimina la variable de sesión
             session()->forget('editandoEquipo');
         }
-    
+
         // Luego, redirige de vuelta a la misma página
         return redirect()->back();
     }
 
-    public function guardarCambios(Request $request) {
+    public function guardarCambios(Request $request)
+    {
         $request->validate([
             'equipo_id' => 'required|integer', // Cambia el tipo según sea necesario
             'nombre_editado' => 'required|string|max:255',
             'descripcion_editada' => 'nullable|string|max:255',
         ]);
-    
+
         // Obtener los datos del formulario
         $equipoId = $request->input('equipo_id');
         $nombreEditado = $request->input('nombre_editado');
         $descripcionEditada = $request->input('descripcion_editada');
-    
+
         // Realizar la lógica de edición aquí
         $equipo = TipoDispositivo::find($equipoId);
         if ($equipo) {
             $equipo->nombre = $nombreEditado;
             $equipo->descripcion = $descripcionEditada;
             $equipo->save();
-            
+
+            $newActivity = new LogActividad();
+            $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+            $newActivity->ActividadRealizada = 'Editado el equipo ' . $equipo->nombre;
+            $newActivity->save();
             //Limpiar la variable de sesion de edicion para que no me aparezca el formulario una vez se pulse el boton de guardar cambios
             session()->forget('editandoEquipo');
 
@@ -437,8 +488,13 @@ public function contarUnidadesDesechadas()
         $ubicacion->descripcion = $request->input('descripcion');
 
         // Guardar la ubicación en la base de datos
-        $ubicacion->save();
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Creada la ubicación ' . $ubicacion->nombre_ubicacion;
+        $newActivity->save();
 
+        $ubicacion->save();
+        
         // Redirigir a alguna vista o ruta apropiada
         return redirect('ubicaciones')->with('success', '¡Datos guardados correctamente!');
     }

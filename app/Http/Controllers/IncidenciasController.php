@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Mantenimiento;
 use App\Models\Dispositivo;
 use Illuminate\Http\Request;
+use App\Models\LogActividad;
+use Carbon\Carbon;
 
 class IncidenciasController extends Controller
 {
@@ -65,11 +67,16 @@ class IncidenciasController extends Controller
         $mantenimiento->asignacion_equipo_mantenimiento_id = $request->input('asignacion_equipo_mantenimiento_id');
         $mantenimiento->estado = $request->input('estado');
 
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Creada la incidencia con id ' . $mantenimiento->ticket_id;
+        $newActivity->save();
         // Guardar el mantenimiento
         $mantenimiento->save();
 
         // Redireccionar o hacer cualquier otra cosa que necesites después de guardar
-        return redirect()->route('mantenimientos.store')->with('success', '¡Datos guardados correctamente!');
+        //return redirect()->route('mantenimientos.store')->with('success', '¡Datos guardados correctamente!');
+        return redirect()->route('login')->with('success', '¡Datos guardados correctamente!');
     
     }
 
@@ -85,6 +92,11 @@ class IncidenciasController extends Controller
       
         // Busca la incidencia por su ID
         $mantenimiento = Mantenimiento::findOrFail($id);
+
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Eliminada la incidencia con id ' . $mantenimiento->id;
+        $newActivity->save();
 
         // Elimina la incidencia
         $mantenimiento->delete();
@@ -113,6 +125,10 @@ class IncidenciasController extends Controller
         $mantenimiento->asignacion_equipo_mantenimiento_id = $request->input('asignacion_equipo_mantenimiento_id');
         $mantenimiento->estado = $request->input('estado');
     
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Actualizada esto de la incidencia con id ' . $mantenimiento->id . ' a '.$mantenimiento->estado;
+        $newActivity->save();
         // Guarda los cambios en la base de datos
         $mantenimiento->save();
     
