@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mantenimiento;
+use App\Models\Dispositivo;
 use Illuminate\Http\Request;
+use App\Models\LogActividad;
+use App\Models\Ubicacion;
+use App\Models\TicketsMantenimiento;
+use Carbon\Carbon;
 
 class IncidenciasController extends Controller
 {
@@ -21,6 +26,47 @@ class IncidenciasController extends Controller
     //fin zona silvia
 
     //zona jose
+
+    
+    
+    public function nuevaIncidencia() {
+        $dispositivos = Dispositivo::join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+            ->select('dispositivo.*', 'tipodispositivos.nombre as nombre_tipo_dispositivo')
+            ->get();
+    
+        // Obtener ubicaciones únicas
+        $ubicaciones = Ubicacion::select('nombre_ubicacion')->distinct()->get();
+    
+        return view('incidencias', [
+            'dispositivos' => $dispositivos,
+            'ubicaciones' => $ubicaciones
+        ]);
+    }
+    public function addNuevaIncidencia(Request $request){
+        // Validar los datos del formulario
+        $request->validate([
+            'tipo_dispositivo' => 'required',
+            'dispositivo' => 'required',
+            'ubicacion' => 'required',
+            'descripcion_problema' => 'required',
+        ]);
+    
+        // Crear un nuevo objeto TicketMantenimiento y asignar los valores del formulario
+        $ticket = new TicketsMantenimiento();
+        $ticket->usuario_id = $request->usuario_id;
+        $ticket->dispositivo_id = $request->dispositivo;
+        $ticket->ubicacion_id = $request->ubicacion;
+        $ticket->descripcion_problema = $request->descripcion_problema;
+    
+        // Asignar la fecha de solicitud con el momento actual
+        $ticket->fecha_solicitud = Carbon::now();
+    
+        // Guardar el nuevo ticket en la base de datos
+        $ticket->save();
+    
+        // Redirigir a una página de confirmación o a donde sea apropiado
+        return view('auth.login');
+    }
 
     //fin zona jose
 
@@ -48,11 +94,16 @@ class IncidenciasController extends Controller
         $mantenimiento->asignacion_equipo_mantenimiento_id = $request->input('asignacion_equipo_mantenimiento_id');
         $mantenimiento->estado = $request->input('estado');
 
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Creada la incidencia con id ' . $mantenimiento->ticket_id;
+        $newActivity->save();
         // Guardar el mantenimiento
         $mantenimiento->save();
 
         // Redireccionar o hacer cualquier otra cosa que necesites después de guardar
-        return redirect()->route('mantenimientos.store')->with('success', '¡Datos guardados correctamente!');
+        //return redirect()->route('mantenimientos.store')->with('success', '¡Datos guardados correctamente!');
+        return redirect()->route('login')->with('success', '¡Datos guardados correctamente!');
     
     }
 
@@ -68,6 +119,11 @@ class IncidenciasController extends Controller
       
         // Busca la incidencia por su ID
         $mantenimiento = Mantenimiento::findOrFail($id);
+
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Eliminada la incidencia con id ' . $mantenimiento->id;
+        $newActivity->save();
 
         // Elimina la incidencia
         $mantenimiento->delete();
@@ -96,6 +152,10 @@ class IncidenciasController extends Controller
         $mantenimiento->asignacion_equipo_mantenimiento_id = $request->input('asignacion_equipo_mantenimiento_id');
         $mantenimiento->estado = $request->input('estado');
     
+        $newActivity = new LogActividad();
+        $newActivity->FechaRegistro = Carbon::now()->format('Y-m-d H:i:s');
+        $newActivity->ActividadRealizada = 'Actualizada esto de la incidencia con id ' . $mantenimiento->id . ' a '.$mantenimiento->estado;
+        $newActivity->save();
         // Guarda los cambios en la base de datos
         $mantenimiento->save();
     

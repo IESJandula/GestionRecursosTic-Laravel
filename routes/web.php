@@ -152,4 +152,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/administradores', [AdministradoresController::class, 'eliminarAdministrador'])->name('administradores.eliminar');
 });
 
+// Rutas para el controlador de logs
+Route::middleware('auth')->group(function () {
+    Route::get('/logs', [AdministradoresController::class, 'generalActivity'])->name('logs.logs');
+});
+
+
+//Dar de alta una nueva incidencia en el sistema
+Route::get('/nuevaIncidencia', function () {
+    return view('incidencias.nuevaIncidencia');
+})->name('nuevaIncidencia');
+
+//RUTA NUEVA INCIDENCIA
+
+Route::get('/incidencias',  [IncidenciasController::class, 'nuevaIncidencia'])->name('incidencias');
+Route::post('/incidenciaNueva',  [IncidenciasController::class, 'addNuevaIncidencia'])->name('incidenciaNueva');
+
 require __DIR__.'/auth.php';

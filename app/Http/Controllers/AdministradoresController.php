@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Validation\Rule;
-
+use App\Models\LogActividad;
 
 class AdministradoresController extends Controller
 {
@@ -32,6 +32,7 @@ class AdministradoresController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
 
+        
         return redirect()->route('administradores.listar')->with('success', 'Administrador agregado exitosamente');
     }
 
@@ -64,7 +65,10 @@ class AdministradoresController extends Controller
 
 
     /* FIN ZONA FRANCISCO */
-
+    public function generalActivity(){
+        $registros = LogActividad::all();
+        return view('logs.logs', compact('registros'));
+    }
 
 
     /* ZONA JUANMA */

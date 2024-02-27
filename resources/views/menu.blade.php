@@ -129,19 +129,25 @@
         <li class="menu-item active open">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Dashboards">INCIDENCIAS</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{ url('mantenimientos') }}" class="menu-link">
+                        <div data-i18n="CRM">Administrar Incidencias</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item active open">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Dashboards">ADMINISTRAR LOGS</div>
             </a>
             <ul class="menu-sub">
-                <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
                 <li class="menu-item">
-                    <a href="" class="menu-link">
+                    <a href="{{url('logs')}}" class="menu-link">
                         <div data-i18n="CRM">Actividad general</div>
-                    </a>
-                </li>
-                <!--MENU PENDIENTE DE ENLAZAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-                <li class="menu-item">
-                    <a href="" class="menu-link">
-                        <div data-i18n="CRM">Actividad de usuario</div>
                     </a>
                 </li>
             </ul>
