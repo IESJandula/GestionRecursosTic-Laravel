@@ -14,7 +14,7 @@
                             <div class="col-md-4">
                                 <label for="nombre">Usuario:</label>
                                 <select name="usuario_id" id="usuario_id" class="form-control" required>
-                                    <option value="">Anónimo</option>
+                                    <option value="1">Anónimo</option>
                                 </select>
                             </div>
 

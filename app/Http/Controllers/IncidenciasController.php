@@ -53,9 +53,9 @@ class IncidenciasController extends Controller
     
         // Crear un nuevo objeto TicketMantenimiento y asignar los valores del formulario
         $ticket = new TicketsMantenimiento();
-        $ticket->tipo_dispositivo = $request->tipo_dispositivo;
+        $ticket->usuario_id = $request->usuario_id;
         $ticket->dispositivo_id = $request->dispositivo;
-        $ticket->ubicacion = $request->ubicacion;
+        $ticket->ubicacion_id = $request->ubicacion;
         $ticket->descripcion_problema = $request->descripcion_problema;
     
         // Asignar la fecha de solicitud con el momento actual
