@@ -16,9 +16,10 @@ class Ubicacion extends Model
     ];
 
 
-    public function dispositivos()
-    {
+    public function dispositivos(){
+
         return $this->hasMany(Dispositivo::class);
+        
     }
 
 }

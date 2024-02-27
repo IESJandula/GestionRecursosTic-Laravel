@@ -28,7 +28,11 @@
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h1 class="card-title m-0 me-2">Listado de Ubicaciones</h1>
+                        <h1 class="card-title m-0 me-2">Listado de Ubicaciones</h1> 
+                        <form action="{{ route('ubicaciones.mostrarEquiposPorUbicacion') }}" method="GET">
+                            @csrf
+                            <button type="submit" class="btn btn-info">Mostrar Equipos</button>
+                        </form>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -38,7 +42,7 @@
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Descripción</th>
-                                        <th colspan="3">Acciones</th>
+                                        <th colspan="2">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,13 +61,9 @@
                                                 </form>
                                             </td>
                                             <td>
-                                            {{-- FORMULARIO PARA MOSTRAR LISTADO DE LOS EQUIPOS POR ESA UBICACION --}}
-                                                <form action="{{route('ubicaciones.filtrarPorUbicacion')}}" method="POST">
-                                                    <input type="hidden" name="ubicacion_id" value="{{ $ubicacion->id }}">
-                                                    <button type="submit" class="btn btn-info">Mostrar Equipos</button>
-                                                </form>
+                                                
                                             </td>
-                                            
+
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -74,6 +74,5 @@
             </div>
         </div>
     </div>
-    
-    <!--/ Fin de ejemplo de maquetacion de contenido -->
+
 @endsection
