@@ -48,7 +48,7 @@
             </x-primary-button>
             <x-danger-button class="ms-3">
 
-                <a href="{{ url('nuevaIncidencia') }}" class="text-white" style="text-decoration: none;">Nueva Incidencia</a>
+                <a href="{{ route('incidencias') }}" class="text-white" style="text-decoration: none;">Nueva Incidencia</a>
 
             </x-danger-button>
         </div>

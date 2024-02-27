@@ -165,5 +165,6 @@ Route::get('/nuevaIncidencia', function () {
 //RUTA NUEVA INCIDENCIA
 
 Route::get('/incidencias',  [IncidenciasController::class, 'nuevaIncidencia'])->name('incidencias');
+Route::post('/incidenciaNueva',  [IncidenciasController::class, 'addNuevaIncidencia'])->name('incidenciaNueva');
 
 require __DIR__.'/auth.php';

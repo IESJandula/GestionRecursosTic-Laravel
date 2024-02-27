@@ -3,39 +3,44 @@
     <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
         <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <h1 class="card-title m-0 me-2">Añadir nuevo dispositivo {{$dispositivos}}</h1>
+                <h1 class="card-title m-0 me-2">Añadir nuevo dispositivo </h1>
             </div>
             <div class="card-body">
 
-                <form action="{{ url('addNew') }}" method="POST">
+                <form action="{{ route('incidenciaNueva') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="nombre">Usuario:</label>
-                                <select name="tipo_dispositivo" id="tipo_dispositivo" class="form-control" required>
-                                    <option value="anonimo">Anónimo</option>
+                                <select name="usuario_id" id="usuario_id" class="form-control" required>
+                                    <option value="">Anónimo</option>
                                 </select>
                             </div>
 
-                            
+
                             <div class="col-md-4">
                                 <label for="dispositivo">Dispositivo:</label>
                                 <select name="dispositivo" id="dispositivo">
                                     @foreach($dispositivos as $dispositivo)
-                                        <option value="{{ $dispositivo->id }}">{{ $dispositivo->id }} - {{ $dispositivo->nombredispositivo }}</option>
-                                        <p>{{ $dispositivo}}</p>
+                                        <option value="{{ $dispositivo->id }}">{{ $dispositivo->id }} - {{ $dispositivo->nombre_tipo_dispositivo }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label for="modelo">Ubicacion: </label>
-                                <input type="text" name="modelo" id="modelo" class="form-control" required>
+                                <label for="ubicacion">Ubicación:</label>
+                                <select name="ubicacion" id="ubicacion" class="form-control">
+                                    @foreach($ubicaciones as $ubicacion)
+                                        <option value="{{ $ubicacion->nombre_ubicacion }}">{{ $ubicacion->nombre_ubicacion }}</option>
+                                    @endforeach
+                                </select>
                             </div>
+                            
 
                             <div class="col-md-4">
                                 <label for="marca">Descripcion del problema: </label>
-                                <input type="text" name="marca" id="marca" class="form-control" required>
+                                <textarea name="descripcion_problema"></textarea>
+
                             </div>
                         </div>
                     </div>

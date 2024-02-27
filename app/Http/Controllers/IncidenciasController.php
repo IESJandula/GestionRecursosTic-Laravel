@@ -6,6 +6,8 @@ use App\Models\Mantenimiento;
 use App\Models\Dispositivo;
 use Illuminate\Http\Request;
 use App\Models\LogActividad;
+use App\Models\Ubicacion;
+use App\Models\TicketsMantenimiento;
 use Carbon\Carbon;
 
 class IncidenciasController extends Controller
@@ -25,21 +27,46 @@ class IncidenciasController extends Controller
 
     //zona jose
 
-    public function mostrarDispositivos(){
-        $dispositivos = Dispositivo::join('ubicaciones','dispositivo.ubicacion_id','=','ubicaciones.id')
-            ->join('tipodispositivos','dispositivo.tipo_dispositivo','=','tipodispositivos.id')
-            ->select('dispositivo.*','ubicaciones.nombre_ubicacion as nombreubicacion', 'tipodispositivos.nombre as nombredispositivo','tipodispositivos.descripcion as descripcion')
+    
+    
+    public function nuevaIncidencia() {
+        $dispositivos = Dispositivo::join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+            ->select('dispositivo.*', 'tipodispositivos.nombre as nombre_tipo_dispositivo')
             ->get();
-        return $dispositivos;
-    }
     
+        // Obtener ubicaciones únicas
+        $ubicaciones = Ubicacion::select('nombre_ubicacion')->distinct()->get();
     
-    public function nuevaIncidencia(){
-        $dispositivos = $this->mostrarDispositivos();
-        return view('incidencias')->with('dispositivos', $dispositivos);
+        return view('incidencias', [
+            'dispositivos' => $dispositivos,
+            'ubicaciones' => $ubicaciones
+        ]);
     }
-
-
+    public function addNuevaIncidencia(Request $request){
+        // Validar los datos del formulario
+        $request->validate([
+            'tipo_dispositivo' => 'required',
+            'dispositivo' => 'required',
+            'ubicacion' => 'required',
+            'descripcion_problema' => 'required',
+        ]);
+    
+        // Crear un nuevo objeto TicketMantenimiento y asignar los valores del formulario
+        $ticket = new TicketsMantenimiento();
+        $ticket->tipo_dispositivo = $request->tipo_dispositivo;
+        $ticket->dispositivo_id = $request->dispositivo;
+        $ticket->ubicacion = $request->ubicacion;
+        $ticket->descripcion_problema = $request->descripcion_problema;
+    
+        // Asignar la fecha de solicitud con el momento actual
+        $ticket->fecha_solicitud = Carbon::now();
+    
+        // Guardar el nuevo ticket en la base de datos
+        $ticket->save();
+    
+        // Redirigir a una página de confirmación o a donde sea apropiado
+        return view('auth.login');
+    }
 
     //fin zona jose
 
