@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Ubicacion;
 
+use App\Models\Dispositivo;
+
+
 
 class UbicacionesController extends Controller
 {
@@ -97,6 +100,7 @@ class UbicacionesController extends Controller
 
     /** zona juanma */
     public function filtrarPorUbicacion(Request $request)
+
     {
         // Obtener el ID de la ubicación seleccionada desde la solicitud
         $ubicacionId = $request->input('ubicacion');
@@ -108,7 +112,28 @@ class UbicacionesController extends Controller
 
         // Pasar los dispositivos filtrados a la vista
         return view('dispositivos.listaDispositivos', compact('dispositivos', 'ubicaciones'));
+
     }
+    
+    public function mostrarEquiposPorUbicacion(Request $request)
+    {
+        $ubicacionId = $request->input('ubicacion');
+        $ubicaciones = Ubicacion::all();
+        
+        // Verificar si se ha seleccionado una ubicación
+        if ($ubicacionId) {
+            // Obtener los dispositivos de la ubicación seleccionada
+            $dispositivos = Dispositivo::where('ubicacion_id', $ubicacionId)->get();
+        } else {
+            // Si no se ha seleccionado ninguna ubicación, inicializar la variable $dispositivos vacía
+            $dispositivos = collect();
+        }
+    
+        return view('dispositivos.mostrarEquiposPorUbicacion', compact('dispositivos', 'ubicaciones'));
+    }
+    
+
+
 
     public function ubicaciones()
     {
