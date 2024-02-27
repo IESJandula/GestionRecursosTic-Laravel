@@ -110,7 +110,8 @@ Route::put('ubicaciones/{id}', [UbicacionesController::class, 'update'])->name('
 
 Route::post('/filtrarPorUbicacion', [UbicacionesController::class, 'filtrarPorUbicacion'])->name('ubicaciones.filtrarPorUbicacion');
 
-// Ruta para eliminar una ubicación
+Route::match(['get', 'post'], '/mostrarEquiposPorUbicacion', [UbicacionesController::class, 'mostrarEquiposPorUbicacion'])->name('ubicaciones.mostrarEquiposPorUbicacion');
+
 Route::delete('ubicaciones/{id}', [UbicacionesController::class, 'destroy'])->name('ubicaciones.destroy');
 
 
