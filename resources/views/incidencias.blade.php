@@ -11,14 +11,13 @@
                     @csrf
                     <div class="form-group">
                         <div class="row">
+                            
                             <div class="col-md-4">
                                 <label for="nombre">Usuario:</label>
                                 <select name="usuario_id" id="usuario_id" class="form-control" required>
                                     <option value="1">Anónimo</option>
                                 </select>
                             </div>
-
-
                             <div class="col-md-4">
                                 <label for="dispositivo">Dispositivo:</label>
                                 <select name="dispositivo" id="dispositivo">
@@ -28,18 +27,15 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label for="ubicacion">Ubicación:</label>
-                                <select name="ubicacion" id="ubicacion" class="form-control">
-                                    @foreach($ubicaciones as $ubicacion)
-                                        <option value="{{ $ubicacion->nombre_ubicacion }}">{{ $ubicacion->nombre_ubicacion }}</option>
-                                    @endforeach
+                                <label for="dispositivo">Esatado Dispositivo:</label>
+                                <select name="dispositivo" id="dispositivo">
+                                    <option value="1">Averiado</option>
+                                    <option value="1">Desechado</option>
                                 </select>
                             </div>
-                            
-
                             <div class="col-md-4">
                                 <label for="marca">Descripcion del problema: </label>
-                                <textarea name="descripcion_problema"></textarea>
+                                <textarea name="tipo_mantenimiento"></textarea>
 
                             </div>
                         </div>

@@ -36,6 +36,7 @@ class IncidenciasController extends Controller
     
         // Obtener ubicaciones únicas
         $ubicaciones = Ubicacion::select('nombre_ubicacion')->distinct()->get();
+        
     
         return view('incidencias', [
             'dispositivos' => $dispositivos,
@@ -45,24 +46,20 @@ class IncidenciasController extends Controller
     public function addNuevaIncidencia(Request $request){
         // Validar los datos del formulario
         $request->validate([
-            'tipo_dispositivo' => 'required',
             'dispositivo' => 'required',
-            'ubicacion' => 'required',
-            'descripcion_problema' => 'required',
+            'estado_dispositivo' => 'required',
+            'tipo_mantenimiento' => 'required',
         ]);
     
-        // Crear un nuevo objeto TicketMantenimiento y asignar los valores del formulario
-        $ticket = new TicketsMantenimiento();
-        $ticket->usuario_id = $request->usuario_id;
-        $ticket->dispositivo_id = $request->dispositivo;
-        $ticket->ubicacion_id = $request->ubicacion;
-        $ticket->descripcion_problema = $request->descripcion_problema;
-    
-        // Asignar la fecha de solicitud con el momento actual
-        $ticket->fecha_solicitud = Carbon::now();
-    
-        // Guardar el nuevo ticket en la base de datos
-        $ticket->save();
+        // Crear un nuevo objeto TipoMantenimiento y asignar los valores del formulario
+        $tipoMantenimiento = new Mantenimiento();
+        $tipoMantenimiento->dispositivo_id = $request->dispositivo;
+        $tipoMantenimiento->estado_dispositivo = $request->estado_dispositivo;
+        $tipoMantenimiento->tipo_mantenimiento = $request->tipo_mantenimiento;
+        $tipoMantenimiento->fecha_inicio = Carbon::now(); // Fecha actual
+        
+        // Guardar el nuevo tipo de mantenimiento en la base de datos
+        $tipoMantenimiento->save();
     
         // Redirigir a una página de confirmación o a donde sea apropiado
         return view('auth.login');
