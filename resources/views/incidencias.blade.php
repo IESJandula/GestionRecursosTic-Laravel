@@ -32,7 +32,7 @@
                                 <label for="ubicacion">Ubicación:</label>
                                 <select name="ubicacion" id="ubicacion" class="form-control">
                                     @foreach ($ubicaciones as $ubicacion)
-                                        <option value="{{ $ubicacion->nombre_ubicacion }}">
+                                        <option value="{{ $ubicacion->id }}">
                                             {{ $ubicacion->nombre_ubicacion }}</option>
                                     @endforeach
                                 </select>
@@ -41,16 +41,8 @@
                             <div class="col-md-12">
                                 <label for="marca">Descripcion del problema: </label>
                                 <textarea name="descripcion_problema" class="form-control"></textarea>
-                                <label for="dispositivo">Esatado Dispositivo:</label>
-                                <select name="dispositivo" id="dispositivo">
-                                    <option value="1">Averiado</option>
-                                    <option value="1">Desechado</option>
-                                </select>
                             </div>
-                            <div class="col-md-4">
-                                <label for="marca">Descripcion del problema: </label>
-                                <textarea name="tipo_mantenimiento"></textarea>
-                            </div>
+                            
                         </div>
                     </div>
                     <!--BOTONES DE ENIVAR Y ELINIMAR-->

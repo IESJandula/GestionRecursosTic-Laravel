@@ -35,7 +35,7 @@ class IncidenciasController extends Controller
             ->get();
     
         // Obtener ubicaciones únicas
-        $ubicaciones = Ubicacion::select('nombre_ubicacion')->distinct()->get();
+        $ubicaciones = Ubicacion::select('id', 'nombre_ubicacion')->distinct()->get();
         
     
         return view('incidencias', [
@@ -44,24 +44,25 @@ class IncidenciasController extends Controller
         ]);
     }
     public function addNuevaIncidencia(Request $request){
-        // Validar los datos del formulario
         $request->validate([
+            'usuario_id' => 'required',
             'dispositivo' => 'required',
-            'estado_dispositivo' => 'required',
-            'tipo_mantenimiento' => 'required',
+            'ubicacion' => 'required',
+            'descripcion_problema' => 'required',
         ]);
     
-        // Crear un nuevo objeto TipoMantenimiento y asignar los valores del formulario
-        $tipoMantenimiento = new Mantenimiento();
-        $tipoMantenimiento->dispositivo_id = $request->dispositivo;
-        $tipoMantenimiento->estado_dispositivo = $request->estado_dispositivo;
-        $tipoMantenimiento->tipo_mantenimiento = $request->tipo_mantenimiento;
-        $tipoMantenimiento->fecha_inicio = Carbon::now(); // Fecha actual
-        
-        // Guardar el nuevo tipo de mantenimiento en la base de datos
-        $tipoMantenimiento->save();
+        // Crea una nueva incidencia
+        TicketsMantenimiento::create([
+            'usuario_id' => $request->usuario_id,
+            'dispositivo_id' => $request->dispositivo,
+            'ubicacion_id' => $request->ubicacion,
+            'descripcion_problema' => $request->descripcion_problema,
+            'fecha_solicitud' => now(),
+            
+             // Puedes ajustar esto según tu necesidad
+        ]);
     
-        // Redirigir a una página de confirmación o a donde sea apropiado
+        // Redirige a donde desees después de crear la incidencia
         return view('auth.login');
     }
 
