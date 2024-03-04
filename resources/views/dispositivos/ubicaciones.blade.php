@@ -7,7 +7,7 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Añadir Nueva Ubicación</h5>
+                        <h3 class="card-title">Añadir Nueva Ubicación</h3>
                     </div>
                     <div class="card-body">
                         <form action="{{ url('crearUbicacion') }}" method="POST">

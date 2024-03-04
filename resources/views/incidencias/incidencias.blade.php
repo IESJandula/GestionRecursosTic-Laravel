@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Lista de Mantenimientos</h5>
+                        <h1 class="card-title">Lista de Mantenimientos</h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -30,13 +30,13 @@
                                             <td>{{ $mantenimiento->fecha_solicitud }}</td>
                                             <td>
                                                 @if ($mantenimiento->estado == 'Abierta')
-                                                    <span class="btn btn-primary"
+                                                    <span class="badge bg-danger"
                                                         disabled>{{ $mantenimiento->estado }}</span>
                                                 @elseif ($mantenimiento->estado == 'Inservible')
-                                                    <span class="btn btn-danger"
+                                                    <span class="badge bg-warning"
                                                         disabled>{{ $mantenimiento->estado }}</span>
                                                 @elseif ($mantenimiento->estado == 'Cerrada')
-                                                    <span class="btn btn-success"
+                                                    <span class="badge bg-success"
                                                         disabled>{{ $mantenimiento->estado }}</span>
                                                 @else
                                                     {{ $mantenimiento->estado }}
