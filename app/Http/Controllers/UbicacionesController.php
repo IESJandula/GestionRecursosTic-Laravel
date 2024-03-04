@@ -1,17 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\Models\Ubicacion;
-
-
 use App\Models\Dispositivo;
-
-
-
-
 use App\Models\LogActividad;
 use Carbon\Carbon;
 
@@ -146,10 +138,8 @@ class UbicacionesController extends Controller
     
         return view('dispositivos.mostrarEquiposPorUbicacion', compact('dispositivos', 'ubicaciones'));
     }
+
     
-
-
-
     public function ubicaciones()
     {
         $ubicaciones = Ubicacion::all();

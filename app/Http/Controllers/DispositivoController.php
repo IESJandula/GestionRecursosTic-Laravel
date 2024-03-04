@@ -238,7 +238,7 @@ class DispositivoController extends Controller
         $dispositivo = Dispositivo::findOrFail($id);
 
         // Cambiar el estado a "desechado" 
-        $dispositivo->estado = 4;
+        $dispositivo->estado = 2;
         $dispositivo->save();
 
         // Redirigir a la vista o a donde sea necesario

@@ -2,6 +2,7 @@
 
 @section('content')
     <!-- Ejemplo de maquetacion de contenido -->
+    
     <div class="col-md-11.5 col-lg-11.5 order-2 m-4">
         <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between">
@@ -41,8 +42,10 @@
                                     <td>{{ $dispositivo->marca }}</td>
                                     <td>{{ $dispositivo->fecha_adquisicion }}</td>
                                     <td>
-                                        @if($dispositivo->estado == 0)
+                                        @if($dispositivo->estado == 3)
                                             <span class="badge bg-success">Nuevo</span>
+                                        @elseif($dispositivo->estado == 2)
+                                            <span class="badge bg-warning">Desechado</span>
                                         @else
                                             <span class="badge bg-danger">Averiado</span>
                                         @endif

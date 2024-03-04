@@ -40,7 +40,7 @@
                             <div class="col-md-2">
                                 <label for="fecha">Fecha de adquisición:</label>
                                 <input type="date" id="fecha_adquisicion" name="fecha_adquisicion" class="form-control" required>
-                                <input type="hidden" name="estado" id="estado" value="0">
+                                <input type="hidden" name="estado" id="estado" value="3">
                             </div>
                             <div class="col-md-2">
                                 <label for="ubicacion_id">Ubicación:</label>

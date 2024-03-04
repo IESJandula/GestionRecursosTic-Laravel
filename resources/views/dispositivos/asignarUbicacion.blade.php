@@ -12,6 +12,7 @@
                             <tbody>
                                 <tr>
                                     <td>
+                                        <h1></h1>
                                         <label for="tipo">Selecciona Ubicacion </label>
                                         <select name="ubicacion" id="ubicacion" class="form-control">
                                             <option value="todos">todos</option>
