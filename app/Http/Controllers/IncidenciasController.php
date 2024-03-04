@@ -61,6 +61,11 @@ class IncidenciasController extends Controller
             
              // Puedes ajustar esto según tu necesidad
         ]);
+        $dispositivo = Dispositivo::find($request->dispositivo);
+        if ($dispositivo) {
+            $dispositivo->estado = '1';
+            $dispositivo->save();
+        }
     
         // Redirige a donde desees después de crear la incidencia
         return view('auth.login');
