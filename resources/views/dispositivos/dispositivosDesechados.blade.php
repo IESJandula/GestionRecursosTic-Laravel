@@ -32,7 +32,7 @@
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <tbody>
-                            <form action="{{ route('filtrar-por-tipo') }}" method="GET">
+                            <form action="{{ route('filtrar-por-tipo-desechados') }}" method="GET">
 
                                 @csrf
                                 <tr>

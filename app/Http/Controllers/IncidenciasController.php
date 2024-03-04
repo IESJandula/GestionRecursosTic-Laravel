@@ -15,7 +15,7 @@ class IncidenciasController extends Controller
     //zona fran
     public function list()
     {
-        $mantenimientos = Mantenimiento::all();
+        $mantenimientos = TicketsMantenimiento::all();
         return view('incidencias.incidencias', compact('mantenimientos'));
 
     }

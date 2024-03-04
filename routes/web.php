@@ -41,6 +41,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reparar/{id}', [DispositivoController::class, 'reparar'])->name('reparar');
     Route::get('/desechar/{id}', [DispositivoController::class, 'desechar'])->name('desechar');
     Route::get('/filtrar-por-tipo', [DispositivoController::class, 'filtrarPorTipo'])->name('filtrar-por-tipo');
+    Route::get('/filtrar-por-tipo-desechados', [DispositivoController::class, 'filtrarPorTipoDesechados'])->name('filtrar-por-tipo-desechados');
+
+
     Route::get('/asignar-ubicacion', [DispositivoController::class, 'listarDispositivosUbicados'])->name('asignar-ubicacion');
     Route::get('/asignar-ubicacion-nueva', [DispositivoController::class, 'asignarUbicacion'])->name('asignar-ubicacion-nueva');
     Route::get('/ver-equipos-desechados', [DispositivoController::class, 'listarDesechados'])->name('ver-equipos-desechados');

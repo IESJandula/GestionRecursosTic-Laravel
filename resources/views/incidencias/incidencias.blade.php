@@ -14,25 +14,20 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Tipo de Mantenimiento</th>
+                                        <th>Descripcion problema</th>
                                         <th>Ticket ID</th>
                                         <th>Dispositivo ID</th>
-                                        <th>Fecha de Inicio</th>
-                                        <th>Fecha de Fin</th>
-                                        <th>Asignación Equipo Mantenimiento</th>
-                                        <th>Estado</th>
-                                        <th colspan="2">Accion</th>
+                                        <th>Fecha de Solicitud</th>
+                                        <th colspan="3">Accion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($mantenimientos as $mantenimiento)
                                         <tr>
-                                            <td>{{ $mantenimiento->tipo_mantenimiento }}</td>
-                                            <td>{{ $mantenimiento->ticket_id }}</td>
+                                            <td>{{ $mantenimiento->descripcion_problema }}</td>
+                                            <td>{{ $mantenimiento->id }}</td>
                                             <td>{{ $mantenimiento->dispositivo_id }}</td>
-                                            <td>{{ $mantenimiento->fecha_inicio }}</td>
-                                            <td>{{ $mantenimiento->fecha_fin }}</td>
-                                            <td>{{ $mantenimiento->asignacion_equipo_mantenimiento }}</td>
+                                            <td>{{ $mantenimiento->fecha_solicitud }}</td>
                                             <td>
                                                 @if ($mantenimiento->estado == 'Abierta')
                                                     <span class="btn btn-primary"

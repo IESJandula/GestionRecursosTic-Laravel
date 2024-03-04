@@ -284,6 +284,29 @@ class DispositivoController extends Controller
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////V  I  S  T  A       L  I  S  T  A  R      D  E  S  E  C  H  A  D  O  S////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function filtrarPorTipoDesechados(Request $request)
+    {
+        $tipoSeleccionado = $request->input('tipo');
+
+        // Obtener dispositivos filtrados por el tipo seleccionado
+        $dispositivosFiltrados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
+            ->join('tipodispositivos', 'dispositivo.tipo_dispositivo', '=', 'tipodispositivos.id')
+            ->join('ubicaciones', 'dispositivo.ubicacion_id', '=', 'ubicaciones.id')
+            ->where('estado_dispositivos.nombre', '=', 'desechado')
+            ->when($tipoSeleccionado != 'todos', function ($query) use ($tipoSeleccionado) {
+                return $query->where('tipodispositivos.nombre', '=', $tipoSeleccionado);
+            })
+            ->select('dispositivo.*', 'estado_dispositivos.nombre as nombreestado', 'estado_dispositivos.descripcion as descripcion', 'tipodispositivos.nombre as nombredispositivo', 'ubicaciones.nombre_ubicacion as nombreubicacion')
+            ->get();
+
+        // Retornar la vista con los resultados filtrados
+        $contados = $this->contarUnidadesAveriadas();
+
+        return view('dispositivos.dispositivosDesechados')
+            ->with('dispositivos', $dispositivosFiltrados)
+            ->with('contados', $contados);
+    }
     public function listarDesechados()
     {
         $dispositivosDesechados = Dispositivo::join('estado_dispositivos', 'dispositivo.estado', '=', 'estado_dispositivos.id')
