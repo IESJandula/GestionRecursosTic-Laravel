@@ -10,7 +10,7 @@
                         <h1 class="card-title m-0 me-2">Dispositivos Desechados 🗑️</h1>
                         <br>
                     </div>
-                    <form action="{{ route('filtrar-por-tipo') }}" method="GET">
+                    <form action="{{ route('filtrar-por-tipo-desechados') }}" method="GET">
                         @csrf
                         <div class="col-8">
                             <label for="tipo">Filtrar por nombre: </label>
