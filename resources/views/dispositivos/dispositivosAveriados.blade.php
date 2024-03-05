@@ -73,7 +73,7 @@
                                     <td>{{ $dispositivo->marca }}</td>
                                     <td>{{ $dispositivo->modelo }}</td>
                                     <td @class(['averiado' => $dispositivo->nombreestado === 'averiado'])>
-                                        {{ $dispositivo->nombreestado }}
+                                        <span class="badge bg-danger">{{ $dispositivo->nombreestado }}</span>
                                     </td>
 
                                     <td>{{ $dispositivo->nombreubicacion }}</td>

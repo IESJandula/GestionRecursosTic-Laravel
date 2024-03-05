@@ -18,7 +18,8 @@
                                         <th>Ticket ID</th>
                                         <th>Dispositivo ID</th>
                                         <th>Fecha de Solicitud</th>
-                                        <th colspan="3">Accion</th>
+                                        <th>Estado</th>
+                                        <th>Accion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -29,29 +30,11 @@
                                             <td>{{ $mantenimiento->dispositivo_id }}</td>
                                             <td>{{ $mantenimiento->fecha_solicitud }}</td>
                                             <td>
-                                                @if ($mantenimiento->estado == 'Abierta')
-                                                    <span class="badge bg-danger"
-                                                        disabled>{{ $mantenimiento->estado }}</span>
-                                                @elseif ($mantenimiento->estado == 'Inservible')
-                                                    <span class="badge bg-warning"
-                                                        disabled>{{ $mantenimiento->estado }}</span>
-                                                @elseif ($mantenimiento->estado == 'Cerrada')
-                                                    <span class="badge bg-success"
-                                                        disabled>{{ $mantenimiento->estado }}</span>
-                                                @else
-                                                    {{ $mantenimiento->estado }}
-                                                @endif
+                                                <span class="badge bg-danger">AVERIADO</span>
                                             </td>
                                             <td>
-                                                <form action="{{ route('mantenimientos.destroy', $mantenimiento->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('mantenimientos.edit', $mantenimiento->id) }}"
-                                                    class="btn btn-primary">Editar</a>
+                                                <a href="{{ url('/dispositivos-averiados') }}"
+                                                    class="btn btn-primary">Actualizar estado</a>
                                             </td>
 
                                         </tr>
