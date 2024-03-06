@@ -107,8 +107,6 @@ Route::delete('/ubicaciones/{ubicacion}', [UbicacionesController::class, 'destro
 
 Route::post('/crearUbicacion', [UbicacionesController::class, 'crearUbicacion']);
 
-Route::get('ubicaciones/{id}/edit', [UbicacionesController::class, 'edit'])->name('ubicaciones.edit');
-
 Route::put('ubicaciones/{id}', [UbicacionesController::class, 'update'])->name('ubicaciones.update');
 
 Route::post('/filtrarPorUbicacion', [UbicacionesController::class, 'filtrarPorUbicacion'])->name('ubicaciones.filtrarPorUbicacion');
@@ -119,6 +117,8 @@ Route::delete('ubicaciones/{id}', [UbicacionesController::class, 'destroy'])->na
 
 
 /*Parte para el controlador de Incidencias*/
+
+/*Estas las hice pero al final no se usan por un error de comunicacion*/
 Route::get('/mantenimientos', [IncidenciasController::class, 'list'])->name('mantenimientos.list');
 
 Route::post('/mantenimientos', [IncidenciasController::class, 'store'])->name('mantenimientos.store');
@@ -130,7 +130,7 @@ Route::put('mantenimientos/{id}', [IncidenciasController::class, 'update'])->nam
 Route::delete('/mantenimientos/{id}', [IncidenciasController::class, 'destroy'])->name('mantenimientos.destroy');
 
 
-Route::get('/nuevaIncidencia', [IncidenciasController::class, 'create'])->name('mantenimientos.create');
+
 
 
 
@@ -170,5 +170,7 @@ Route::get('/nuevaIncidencia', function () {
 
 Route::get('/incidencias',  [IncidenciasController::class, 'nuevaIncidencia'])->name('incidencias');
 Route::post('/incidenciaNueva',  [IncidenciasController::class, 'addNuevaIncidencia'])->name('incidenciaNueva');
+
+Route::get('/nuevaIncidencia', [IncidenciasController::class, 'create'])->name('mantenimientos.create');
 
 require __DIR__.'/auth.php';

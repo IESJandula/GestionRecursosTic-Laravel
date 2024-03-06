@@ -52,7 +52,7 @@
                             </select>
                         </div>
 
-                        <!-- Puedes agregar más campos aquí según sea necesario -->
+                    
 
                         <button type="submit" class="btn btn-primary">Actualizar</button>
                     </form>

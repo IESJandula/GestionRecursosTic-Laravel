@@ -26,4 +26,3 @@
     </div>
     <!-- Fin del formulario de edición de ubicación -->
 @endsection
-
